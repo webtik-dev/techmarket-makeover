@@ -67,10 +67,10 @@ function ProductPage() {
 
           {/* Sticky buy panel */}
           <aside className="space-y-4">
-            <div className="rounded-2xl bg-card p-6 shadow-card">
+            <div className="rounded-2xl bg-card p-5 shadow-card md:p-6">
               <div className="text-xs font-bold uppercase tracking-wider text-brand">{product.brand}</div>
-              <h1 className="mt-1 font-display text-2xl font-black text-ink md:text-3xl">{product.name}</h1>
-              <div className="mt-2 flex items-center gap-3 text-sm">
+              <h1 className="mt-1 font-display text-xl font-black text-ink sm:text-2xl md:text-3xl">{product.name}</h1>
+              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm">
                 <div className="flex items-center gap-1">
                   <Star className="h-4 w-4 fill-warning text-warning" />
                   <span className="font-bold text-ink">{product.rating.toFixed(1)}</span>
@@ -78,6 +78,7 @@ function ProductPage() {
                 </div>
                 <span className="text-muted-foreground">SKU: TM-{product.id.toUpperCase()}</span>
               </div>
+
 
               <ul className="mt-4 space-y-1.5 text-sm text-ink">
                 {product.specs.map((s: string, i: number) => (
