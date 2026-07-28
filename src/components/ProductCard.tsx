@@ -149,9 +149,9 @@ export function ProductCard({ product }: { product: Product }) {
               Сравни
             </button>
           </div>
-
         </div>
       </div>
     </article>
+
   );
 }
