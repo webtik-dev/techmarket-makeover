@@ -103,7 +103,7 @@ export function ProductCard({ product }: { product: Product }) {
             <button
               type="button"
               aria-label="Добави в любими"
-              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-border bg-background text-[12px] font-semibold text-ink-soft transition hover:border-brand hover:text-brand"
+              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full bg-surface text-[12px] font-semibold text-ink-soft transition hover:bg-brand/10 hover:text-brand"
             >
               <Heart className="h-3.5 w-3.5" strokeWidth={2} />
               Любими
@@ -111,12 +111,13 @@ export function ProductCard({ product }: { product: Product }) {
             <button
               type="button"
               aria-label="Сравни"
-              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-border bg-background text-[12px] font-semibold text-ink-soft transition hover:border-brand hover:text-brand"
+              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full bg-surface text-[12px] font-semibold text-ink-soft transition hover:bg-brand/10 hover:text-brand"
             >
               <GitCompareArrows className="h-3.5 w-3.5" strokeWidth={2} />
               Сравни
             </button>
           </div>
+
         </div>
       </div>
     </article>
