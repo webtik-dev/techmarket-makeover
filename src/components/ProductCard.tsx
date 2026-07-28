@@ -72,8 +72,8 @@ export function ProductCard({ product }: { product: Product }) {
         </Link>
 
         {/* Price EUR primary, BGN converted; strike old prices when on sale */}
-        <div className="mt-auto pt-3">
-          <div className="flex items-baseline gap-2">
+        <div className="mt-auto border-t border-border/40 pt-2">
+          <div className="flex items-baseline justify-between gap-2">
             <div className="font-display text-[22px] font-black leading-none text-brand">
               {formatEUR(product.price)}
               <span className="ml-0.5 text-sm font-bold">€</span>
@@ -84,12 +84,19 @@ export function ProductCard({ product }: { product: Product }) {
               </div>
             )}
           </div>
-          <div className="mt-0.5 flex items-baseline gap-1.5 text-[11px] text-muted-foreground">
-            <span>{formatEUR(priceBgn)} лв.</span>
+          <div className="my-1 border-t border-border/30" />
+          <div className="flex items-baseline justify-between gap-2">
+            <div className="text-[13px] font-semibold leading-none text-muted-foreground">
+              {formatEUR(priceBgn)} лв.
+            </div>
             {oldBgn && (
-              <span className="line-through">{formatEUR(oldBgn)} лв.</span>
+              <div className="text-xs text-muted-foreground line-through">
+                {formatEUR(oldBgn)} лв.
+              </div>
             )}
           </div>
+        </div>
+
 
 
 
