@@ -26,7 +26,7 @@ export function ProductCard({ product }: { product: Product }) {
   const oldEur = product.oldPrice ? product.oldPrice / BGN_PER_EUR : null;
 
   return (
-    <article className="group relative flex h-full flex-col rounded-2xl border border-border bg-card p-3 transition duration-200 hover:border-brand/40 hover:shadow-pop">
+    <article className="group relative flex h-full flex-col rounded-2xl bg-card p-3 transition duration-200 hover:shadow-pop">
       {/* Image */}
       <Link
         to="/product/$slug"
