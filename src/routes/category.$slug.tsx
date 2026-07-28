@@ -48,42 +48,6 @@ function CategoryPage() {
           </nav>
         </div>
 
-        {/* Header */}
-        <div className="container-tm pt-4">
-          <div className="rounded-2xl bg-card p-6 shadow-card md:p-8">
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <h1 className="font-display text-3xl font-black text-ink md:text-4xl">{cat.name}</h1>
-                <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-                  Разгледай нашата селекция от {cat.name.toLowerCase()} на водещи марки. Официална гаранция,
-                  експресна доставка и професионална консултация.
-                </p>
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Намерени <span className="font-bold text-ink">{items.length}</span> продукта
-              </div>
-            </div>
-
-            {/* Subcategories chips */}
-            <div className="mt-5 flex flex-wrap gap-2">
-              {categories.slice(0, 6).map(c => (
-                <Link
-                  key={c.slug}
-                  to="/category/$slug"
-                  params={{ slug: c.slug }}
-                  className={`inline-flex h-9 items-center rounded-full border px-4 text-xs font-semibold transition-colors ${
-                    c.slug === slug
-                      ? "border-brand bg-brand text-brand-foreground"
-                      : "border-border bg-surface text-ink hover:border-brand hover:text-brand"
-                  }`}
-                >
-                  {c.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* Layout */}
         <div className="container-tm mt-6 grid gap-6 lg:grid-cols-[280px_1fr]">
           {/* Filters */}
@@ -141,6 +105,9 @@ function CategoryPage() {
               <button className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand px-4 text-sm font-bold text-brand-foreground lg:hidden">
                 <SlidersHorizontal className="h-4 w-4" /> Филтри
               </button>
+              <div className="text-sm text-muted-foreground">
+                Намерени <span className="font-bold text-ink">{items.length}</span> продукта
+              </div>
               <div className="flex items-center gap-2 text-sm">
                 <label className="text-muted-foreground">Сортирай:</label>
                 <button className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-border bg-surface px-3 font-semibold text-ink hover:border-brand">
@@ -172,6 +139,15 @@ function CategoryPage() {
               <button className="ml-2 inline-flex h-10 items-center gap-1 rounded-lg bg-card px-4 text-sm font-semibold text-ink hover:bg-surface-2">
                 Следваща <ChevronRight className="h-4 w-4" />
               </button>
+            </div>
+
+            {/* Category description */}
+            <div className="mt-8 rounded-2xl bg-card p-6 shadow-card md:p-8">
+              <h2 className="font-display text-xl font-black text-ink md:text-2xl">{cat.name}</h2>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+                Разгледай нашата селекция от {cat.name.toLowerCase()} на водещи марки. Официална гаранция,
+                експресна доставка и професионална консултация от екипа на Techmarket.bg.
+              </p>
             </div>
           </div>
         </div>
