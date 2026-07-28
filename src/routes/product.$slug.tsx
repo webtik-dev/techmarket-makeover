@@ -47,12 +47,12 @@ function ProductPage() {
           </nav>
         </div>
 
-        <div className="container-tm mt-4 grid gap-6 lg:grid-cols-[1fr_400px]">
+        <div className="container-tm mt-4 grid gap-4 md:gap-6 lg:grid-cols-[1fr_400px]">
           {/* Gallery + info */}
-          <div className="grid gap-6 rounded-2xl bg-card p-6 shadow-card md:grid-cols-[100px_1fr] md:p-8">
-            <div className="order-2 flex gap-2 md:order-1 md:flex-col">
+          <div className="grid gap-4 rounded-2xl bg-card p-4 shadow-card md:grid-cols-[100px_1fr] md:gap-6 md:p-8">
+            <div className="order-2 flex gap-2 overflow-x-auto md:order-1 md:flex-col md:overflow-visible">
               {[0, 1, 2, 3].map(i => (
-                <button key={i} className="aspect-square w-20 shrink-0 overflow-hidden rounded-lg border-2 border-border hover:border-brand md:w-full">
+                <button key={i} className="aspect-square w-16 shrink-0 overflow-hidden rounded-lg border-2 border-border hover:border-brand sm:w-20 md:w-full">
                   <ProductImage hue={(product.hue + i * 30) % 360} name={product.name} />
                 </button>
               ))}
@@ -63,6 +63,7 @@ function ProductPage() {
               </div>
             </div>
           </div>
+
 
           {/* Sticky buy panel */}
           <aside className="space-y-4">
