@@ -43,6 +43,37 @@ const reviews = [
 
 const AVERAGE_RATING = 5.0;
 
+function stringToHue(name: string) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return Math.abs(hash) % 360;
+}
+
+function initials(name: string) {
+  return name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+}
+
+function Avatar({ name }: { name: string }) {
+  const hue = stringToHue(name);
+  const bg = `radial-gradient(120% 90% at 30% 20%, oklch(0.95 0.04 ${hue}) 0%, oklch(0.88 0.06 ${hue}) 100%)`;
+  return (
+    <span
+      className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xs font-black text-ink/70"
+      style={{ background: bg }}
+      aria-hidden
+    >
+      {initials(name)}
+    </span>
+  );
+}
+
 export function Reviews() {
   const [page, setPage] = useState(0);
   const itemsPerPage = 2;
@@ -53,8 +84,6 @@ export function Reviews() {
 
   const goPrev = () => setPage((p) => Math.max(0, p - 1));
   const goNext = () => setPage((p) => Math.min(totalPages - 1, p + 1));
-
-  const visible = reviews.slice(page * itemsPerPage, page * itemsPerPage + itemsPerPage);
 
   return (
     <section className="container-tm py-10">
@@ -114,9 +143,7 @@ export function Reviews() {
                 {/* Author */}
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted">
-                      <User className="h-5 w-5 text-muted-foreground" />
-                    </span>
+                    <Avatar name={r.name} />
                     <span className="text-sm font-semibold text-ink">
                       {r.name}
                     </span>
@@ -140,7 +167,7 @@ export function Reviews() {
                     Продукт: <span className="text-ink">{r.product}</span>
                   </p>
                   <div className="h-20 w-20 overflow-hidden rounded-xl bg-surface">
-                    <ProductImage hue={r.productHue} name={r.product} />
+                    <ProductImage hue={r.productHue} name={r.product} compact />
                   </div>
                 </div>
               </article>
@@ -186,3 +213,4 @@ export function Reviews() {
     </section>
   );
 }
+
