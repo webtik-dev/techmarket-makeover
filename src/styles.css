@@ -2,6 +2,30 @@
 @source "../src";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: "Avenir Next Cyr";
+  src: url("/__l5e/assets-v1/202e5f7e-8c85-4b61-a259-f41f08462343/avenir-next-cyr-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenir Next Cyr";
+  src: url("/__l5e/assets-v1/667c19ed-2147-4ba5-a843-1a0fbe9139a1/avenir-next-cyr-demi.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenir Next Cyr";
+  src: url("/__l5e/assets-v1/e08b8ac5-dbd0-4cfe-85c4-e57a73b2c75d/avenir-next-cyr-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
