@@ -74,29 +74,30 @@ export function ProductCard({ product }: { product: Product }) {
 
         {/* Price EUR primary, BGN converted; strike old prices when on sale */}
         <div className="mt-auto pt-2">
-          <div className="flex items-baseline justify-between gap-2">
-            <div className="font-display text-[22px] font-black leading-none text-brand">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
+            <div className="font-display text-[18px] font-black leading-none text-brand sm:text-[22px]">
               {formatEUR(product.price)}
-              <span className="ml-0.5 text-sm font-bold">€</span>
+              <span className="ml-0.5 text-xs font-bold sm:text-sm">€</span>
             </div>
             {product.oldPrice && (
-              <div className="text-xs text-muted-foreground line-through">
+              <div className="text-[11px] text-muted-foreground line-through sm:text-xs">
                 {formatEUR(product.oldPrice)} €
               </div>
             )}
           </div>
           <div className="my-1 border-t border-border/30" />
-          <div className="flex items-baseline justify-between gap-2">
-            <div className="text-[13px] font-semibold leading-none text-muted-foreground">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
+            <div className="text-[12px] font-semibold leading-none text-muted-foreground sm:text-[13px]">
               {formatEUR(priceBgn)} лв.
             </div>
             {oldBgn && (
-              <div className="text-xs text-muted-foreground line-through">
+              <div className="text-[11px] text-muted-foreground line-through sm:text-xs">
                 {formatEUR(oldBgn)} лв.
               </div>
             )}
           </div>
         </div>
+
 
 
 
