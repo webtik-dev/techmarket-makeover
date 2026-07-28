@@ -90,15 +90,34 @@ export function ProductCard({ product }: { product: Product }) {
             {product.price.toFixed(2)} лв.
           </div>
 
+          {/* Perks */}
+          <div className="mt-3 flex items-center gap-2">
+            <span className="inline-flex h-7 flex-1 items-center gap-1.5 rounded-full bg-ink px-2 text-[10px] font-semibold text-white">
+              <img
+                src={tbiLogo.url}
+                alt="TBI Bank"
+                className="h-3.5 w-auto object-contain"
+              />
+              0% лизинг
+            </span>
+            {product.price >= 200 && (
+              <span className="inline-flex h-7 flex-1 items-center gap-1.5 rounded-full bg-success/10 px-2 text-[10px] font-semibold text-success">
+                <Truck className="h-3.5 w-3.5" strokeWidth={2.2} />
+                Безплатна доставка
+              </span>
+            )}
+          </div>
+
           {/* Primary CTA */}
           <button
             type="button"
             disabled={product.stock === "out"}
-            className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-brand px-4 text-[13px] font-bold text-white shadow-brand transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-muted-foreground disabled:shadow-none"
+            className="mt-2 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-brand px-4 text-[13px] font-bold text-white shadow-brand transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-muted-foreground disabled:shadow-none"
           >
             <ShoppingCart className="h-4 w-4" strokeWidth={2.2} />
             Купи
           </button>
+
 
           {/* Secondary actions */}
           <div className="mt-2 grid grid-cols-2 gap-2">
