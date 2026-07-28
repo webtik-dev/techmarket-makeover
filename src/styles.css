@@ -60,7 +60,7 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.19 0.03 264);
 
-  --primary: oklch(0.55 0.22 27);           /* Techmarket red #e30613 */
+  --primary: oklch(0.5 0.185 25);           /* Techmarket logo red #BB2526 */
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.96 0.005 260);
   --secondary-foreground: oklch(0.22 0.03 264);
@@ -68,22 +68,22 @@
   --muted-foreground: oklch(0.5 0.02 260);
   --accent: oklch(0.96 0.005 260);
   --accent-foreground: oklch(0.22 0.03 264);
-  --destructive: oklch(0.55 0.22 27);
+  --destructive: oklch(0.5 0.185 25);
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.92 0.006 260);
   --input: oklch(0.92 0.006 260);
-  --ring: oklch(0.55 0.22 27);
+  --ring: oklch(0.5 0.185 25);
 
-  --ink: oklch(0.19 0.03 264);              /* #111827 */
-  --ink-soft: oklch(0.32 0.03 264);
-  --surface: oklch(0.98 0.003 260);         /* #f7f8fa */
-  --surface-2: oklch(0.955 0.005 260);      /* #f3f4f6 */
-  --brand: oklch(0.55 0.22 27);
+  --ink: oklch(0.2 0.01 260);               /* logo near-black #231F20 */
+  --ink-soft: oklch(0.45 0.005 260);        /* logo grey #6E6E6E */
+  --surface: oklch(0.98 0.003 260);
+  --surface-2: oklch(0.955 0.005 260);
+  --brand: oklch(0.5 0.185 25);             /* #BB2526 */
   --brand-foreground: oklch(1 0 0);
-  --brand-dark: oklch(0.44 0.19 27);
+  --brand-dark: oklch(0.4 0.16 25);
   --success: oklch(0.63 0.16 145);
   --warning: oklch(0.78 0.15 75);
-  --price: oklch(0.55 0.22 27);
+  --price: oklch(0.5 0.185 25);
 }
 
 @layer base {

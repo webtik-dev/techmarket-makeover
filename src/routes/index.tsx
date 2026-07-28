@@ -26,10 +26,10 @@ function HomePage() {
       <main>
         <CategoryCarousel />
         <Benefits />
-        <ProductSection eyebrow="Топ оферти" title="Актуални предложения" products={products.slice(0, 10)} accent />
-        <ProductSection eyebrow="Хит на седмицата" title="Най-продавани" products={products.slice(10, 20)} />
+        <ProductSection title="Актуални предложения" products={products.slice(0, 10)} accent />
+        <ProductSection title="Най-продавани" products={products.slice(10, 20)} />
         <BrandsStrip />
-        <ProductSection eyebrow="Точно сега" title="Нови продукти" products={products.slice(4, 14)} />
+        <ProductSection title="Нови продукти" products={products.slice(4, 14)} />
       </main>
       <Footer />
     </>

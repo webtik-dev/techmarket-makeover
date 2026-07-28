@@ -81,16 +81,16 @@ export function CategoryCarousel() {
 
   return (
     <section className="container-tm pt-8">
-      <div className="mb-5 flex items-end justify-between">
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Кампании</p>
-          <h2 className="mt-1 font-display text-2xl font-black text-ink md:text-3xl">Пазарувай по категория</h2>
-        </div>
-        <div className="hidden items-center gap-2 md:flex">
-          <button onClick={scrollPrev} aria-label="Предишен" className="grid h-10 w-10 place-items-center rounded-full border border-border bg-background text-ink transition hover:border-ink hover:text-ink">
+      <div className="mb-8 flex flex-col items-center text-center">
+        <h2 className="font-display text-3xl font-black uppercase tracking-tight text-ink md:text-4xl">
+          Пазарувай по категория
+        </h2>
+        <span className="mt-3 h-1 w-16 rounded-full bg-brand" />
+        <div className="mt-5 hidden items-center gap-2 md:flex">
+          <button onClick={scrollPrev} aria-label="Предишен" className="grid h-10 w-10 place-items-center rounded-full border border-border bg-background text-ink transition hover:border-brand hover:text-brand">
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <button onClick={scrollNext} aria-label="Следващ" className="grid h-10 w-10 place-items-center rounded-full border border-border bg-background text-ink transition hover:border-ink hover:text-ink">
+          <button onClick={scrollNext} aria-label="Следващ" className="grid h-10 w-10 place-items-center rounded-full border border-border bg-background text-ink transition hover:border-brand hover:text-brand">
             <ChevronRight className="h-4 w-4" />
           </button>
         </div>

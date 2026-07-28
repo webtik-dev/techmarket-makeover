@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Heart, Star } from "lucide-react";
+import { Heart, Star, ShoppingCart, GitCompareArrows } from "lucide-react";
 import type { Product } from "@/lib/mock-data";
 import { ProductImage } from "./ProductImage";
 
@@ -10,7 +10,9 @@ const stockText: Record<Product["stock"], { text: string; dot: string }> = {
   out: { text: "Изчерпан", dot: "bg-destructive" },
 };
 
-function formatPrice(n: number) {
+const BGN_PER_EUR = 1.95583;
+
+function formatEUR(n: number) {
   return n.toLocaleString("bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
@@ -20,8 +22,11 @@ export function ProductCard({ product }: { product: Product }) {
     : 0;
   const s = stockText[product.stock];
 
+  const priceEur = product.price / BGN_PER_EUR;
+  const oldEur = product.oldPrice ? product.oldPrice / BGN_PER_EUR : null;
+
   return (
-    <article className="group relative flex h-full flex-col rounded-2xl bg-card p-3 transition duration-200 hover:shadow-pop">
+    <article className="group relative flex h-full flex-col rounded-2xl border border-border bg-card p-3 transition duration-200 hover:border-brand/40 hover:shadow-pop">
       {/* Image */}
       <Link
         to="/product/$slug"
@@ -31,23 +36,15 @@ export function ProductCard({ product }: { product: Product }) {
         <ProductImage hue={product.hue} name={product.name} />
 
         {discount > 0 && (
-          <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-brand px-2 py-1 text-[11px] font-bold leading-none text-white">
+          <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-brand px-2.5 py-1 text-[11px] font-black leading-none text-white shadow-brand">
             −{discount}%
           </span>
         )}
         {product.badges.includes("new") && discount === 0 && (
-          <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-ink px-2 py-1 text-[11px] font-semibold leading-none text-white">
+          <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-ink px-2.5 py-1 text-[11px] font-semibold leading-none text-white">
             Ново
           </span>
         )}
-
-        <button
-          type="button"
-          aria-label="Добави в любими"
-          className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-background/90 text-ink shadow-card backdrop-blur transition hover:bg-white hover:text-brand"
-        >
-          <Heart className="h-4 w-4" strokeWidth={1.75} />
-        </button>
       </Link>
 
       {/* Body */}
@@ -74,30 +71,52 @@ export function ProductCard({ product }: { product: Product }) {
           {s.text}
         </div>
 
-        {/* Price */}
+        {/* Price EUR primary, BGN secondary */}
         <div className="mt-auto pt-3">
           <div className="flex items-baseline gap-2">
-            <div className="font-display text-[22px] font-black leading-none text-ink">
-              {formatPrice(product.price)}
-              <span className="ml-0.5 text-sm font-bold">лв.</span>
+            <div className="font-display text-[22px] font-black leading-none text-brand">
+              {formatEUR(priceEur)}
+              <span className="ml-0.5 text-sm font-bold">€</span>
             </div>
-            {product.oldPrice && (
+            {oldEur && (
               <div className="text-xs text-muted-foreground line-through">
-                {formatPrice(product.oldPrice)}
+                {formatEUR(oldEur)} €
               </div>
             )}
           </div>
           <div className="mt-0.5 text-[11px] text-muted-foreground">
-            {(product.price / 1.95583).toFixed(2)} €
+            {product.price.toFixed(2)} лв.
           </div>
 
+          {/* Primary CTA */}
           <button
             type="button"
             disabled={product.stock === "out"}
-            className="mt-3 inline-flex h-10 w-full items-center justify-center rounded-full bg-ink px-4 text-[13px] font-semibold text-white transition hover:bg-brand disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-muted-foreground"
+            className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-brand px-4 text-[13px] font-bold text-white shadow-brand transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-muted-foreground disabled:shadow-none"
           >
-            Добави в количката
+            <ShoppingCart className="h-4 w-4" strokeWidth={2.2} />
+            Купи
           </button>
+
+          {/* Secondary actions */}
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              aria-label="Добави в любими"
+              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-border bg-background text-[12px] font-semibold text-ink-soft transition hover:border-brand hover:text-brand"
+            >
+              <Heart className="h-3.5 w-3.5" strokeWidth={2} />
+              Любими
+            </button>
+            <button
+              type="button"
+              aria-label="Сравни"
+              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-border bg-background text-[12px] font-semibold text-ink-soft transition hover:border-brand hover:text-brand"
+            >
+              <GitCompareArrows className="h-3.5 w-3.5" strokeWidth={2} />
+              Сравни
+            </button>
+          </div>
         </div>
       </div>
     </article>
