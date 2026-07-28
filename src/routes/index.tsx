@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { CategoryCarousel } from "@/components/CategoryCarousel";
 import { Benefits } from "@/components/Benefits";
 import { ProductSection } from "@/components/ProductSection";
-import { BrandsStrip } from "@/components/BrandsStrip";
+import { Reviews } from "@/components/Reviews";
 import { products } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/")({
@@ -26,10 +26,10 @@ function HomePage() {
       <main>
         <CategoryCarousel />
         <Benefits />
-        <ProductSection title="Актуални предложения" products={products.slice(0, 10)} accent />
-        <ProductSection title="Най-продавани" products={products.slice(10, 20)} />
-        <BrandsStrip />
-        <ProductSection title="Нови продукти" products={products.slice(4, 14)} />
+        <ProductSection title="Промоции" products={products.slice(0, 10)} accent />
+        <ProductSection title="Нови предложения" products={products.slice(10, 20)} />
+        <ProductSection title="Мобилни телефони" products={products.slice(4, 14)} />
+        <Reviews />
       </main>
       <Footer />
     </>
