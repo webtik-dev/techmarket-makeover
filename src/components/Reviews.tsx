@@ -211,7 +211,7 @@ export function Reviews() {
               onClick={() => setPage(i)}
               aria-label={`Отиди на страница ${i + 1}`}
               className={`h-2.5 w-2.5 rounded-full transition ${
-                i === page ? "bg-brand" : "bg-border hover:bg-muted-foreground/50"
+                i === safePage ? "bg-brand" : "bg-border hover:bg-muted-foreground/50"
               }`}
             />
           ))}
