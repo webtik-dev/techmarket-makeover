@@ -78,15 +78,18 @@ function Avatar({ name }: { name: string }) {
 }
 
 export function Reviews() {
+  const isMobile = useIsMobile();
+  const itemsPerPage = isMobile ? 1 : 2;
   const [page, setPage] = useState(0);
-  const itemsPerPage = 2;
-  const totalPages = Math.ceil(reviews.length / itemsPerPage);
+  const totalPages = Math.max(1, Math.ceil(reviews.length / itemsPerPage));
+  const safePage = Math.min(page, totalPages - 1);
 
-  const canPrev = page > 0;
-  const canNext = page < totalPages - 1;
+  const canPrev = safePage > 0;
+  const canNext = safePage < totalPages - 1;
 
   const goPrev = () => setPage((p) => Math.max(0, p - 1));
   const goNext = () => setPage((p) => Math.min(totalPages - 1, p + 1));
+
 
   return (
     <section className="container-tm py-10">
