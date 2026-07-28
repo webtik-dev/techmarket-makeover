@@ -85,10 +85,10 @@ function MenuDropdown() {
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full z-50 w-[820px] max-w-[92vw] pt-3">
+        <div className="absolute left-0 top-full z-50 w-[760px] max-w-[92vw] pt-3">
           <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-pop">
-            <div className="grid grid-cols-[260px_1fr]">
-              <ul className="max-h-[480px] overflow-y-auto border-r border-border py-2">
+            <div className="grid grid-cols-[300px_1fr]">
+              <ul className="max-h-[520px] overflow-y-auto border-r border-border py-2">
                 {categories.map((c) => {
                   const Icon = c.icon;
                   const isActive = c.slug === active;
@@ -98,15 +98,12 @@ function MenuDropdown() {
                         to="/category/$slug"
                         params={{ slug: c.slug }}
                         onMouseEnter={() => setActive(c.slug)}
-                        className={`flex items-center justify-between gap-3 px-4 py-2 text-[13px] font-medium transition ${
-                          isActive ? "bg-surface text-brand" : "text-ink hover:bg-surface hover:text-brand"
+                        className={`flex items-center gap-3 px-5 py-2.5 text-[13px] transition ${
+                          isActive ? "bg-surface text-brand font-semibold" : "text-ink hover:bg-surface hover:text-brand"
                         }`}
                       >
-                        <span className="inline-flex items-center gap-3">
-                          <Icon className="h-4 w-4" strokeWidth={1.75} />
-                          {c.name}
-                        </span>
-                        <span className="text-[11px] text-muted-foreground">{c.count}</span>
+                        <Icon className="h-4 w-4 shrink-0" strokeWidth={1.75} />
+                        <span className="truncate">{c.name}</span>
                       </Link>
                     </li>
                   );
@@ -114,22 +111,18 @@ function MenuDropdown() {
               </ul>
 
               <div className="p-6">
-                <div className="mb-4 flex items-baseline justify-between">
-                  <h3 className="font-display text-lg font-bold text-ink">
-                    {categories.find((c) => c.slug === active)?.name}
-                  </h3>
-                  <Link
-                    to="/category/$slug"
-                    params={{ slug: active }}
-                    className="text-[12px] font-semibold text-brand hover:underline"
-                  >
-                    Виж всички →
-                  </Link>
-                </div>
-                <ul className="grid grid-cols-2 gap-x-6 gap-y-1">
+                <Link
+                  to="/category/$slug"
+                  params={{ slug: active }}
+                  className="mb-4 block font-display text-[20px] font-semibold text-ink transition hover:text-brand"
+                >
+                  {categories.find((c) => c.slug === active)?.name}
+                </Link>
+                <ul className="space-y-2">
                   {subcatsFor(active).map((s) => (
-                    <li key={s}>
-                      <a href="#" className="block rounded-md py-1.5 text-[13px] text-ink-soft transition hover:text-brand">
+                    <li key={s} className="flex items-start gap-2 text-[13px] text-ink-soft">
+                      <span aria-hidden className="mt-[7px] inline-block h-1 w-1 shrink-0 rounded-full bg-ink-soft" />
+                      <a href="#" className="transition hover:text-brand">
                         {s}
                       </a>
                     </li>
