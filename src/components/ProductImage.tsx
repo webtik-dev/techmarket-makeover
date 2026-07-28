@@ -1,4 +1,12 @@
-export function ProductImage({ hue, name }: { hue: number; name: string }) {
+export function ProductImage({
+  hue,
+  name,
+  compact,
+}: {
+  hue: number;
+  name: string;
+  compact?: boolean;
+}) {
   const bg = `radial-gradient(120% 90% at 30% 20%, oklch(0.99 0.01 ${hue}) 0%, oklch(0.94 0.03 ${hue}) 45%, oklch(0.88 0.05 ${(hue + 30) % 360}) 100%)`;
   const initials = name
     .split(/\s+/)
@@ -13,7 +21,9 @@ export function ProductImage({ hue, name }: { hue: number; name: string }) {
       aria-label={name}
     >
       <span
-        className="font-display text-6xl font-black tracking-tight text-ink/15 transition-transform duration-500 group-hover:scale-105 md:text-7xl"
+        className={`font-display font-black tracking-tight text-ink/15 transition-transform duration-500 group-hover:scale-105 ${
+          compact ? "text-2xl" : "text-6xl md:text-7xl"
+        }`}
         aria-hidden
       >
         {initials}
@@ -22,3 +32,4 @@ export function ProductImage({ hue, name }: { hue: number; name: string }) {
     </div>
   );
 }
+
