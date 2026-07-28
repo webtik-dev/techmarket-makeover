@@ -51,8 +51,11 @@ export function ProductCard({ product }: { product: Product }) {
 
       {/* Body */}
       <div className="flex flex-1 flex-col gap-2 px-1 pt-4">
-        <div className="flex items-center justify-between text-[11px] font-medium text-muted-foreground">
-          <span className="uppercase tracking-wider">{product.brand}</span>
+        <div className="flex items-center justify-between text-[11px] font-medium">
+          <span className="inline-flex items-center gap-1.5 text-ink-soft">
+            <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />
+            {s.text}
+          </span>
           <span className="inline-flex items-center gap-1 text-ink-soft">
             <Star className="h-3 w-3 fill-warning text-warning" />
             {product.rating.toFixed(1)}
@@ -67,11 +70,6 @@ export function ProductCard({ product }: { product: Product }) {
         >
           {product.name}
         </Link>
-
-        <div className="flex items-center gap-1.5 text-[11px] font-medium text-ink-soft">
-          <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />
-          {s.text}
-        </div>
 
         {/* Price EUR primary, BGN secondary */}
         <div className="mt-auto pt-3">
@@ -90,25 +88,20 @@ export function ProductCard({ product }: { product: Product }) {
             {product.price.toFixed(2)} лв.
           </div>
 
-          {/* Perks */}
-          <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-2.5 py-1.5 text-[11px] font-semibold text-ink shadow-sm">
-              <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-warning/20 text-[9px] font-black text-warning">
+          {/* Perks — single row, side-by-side */}
+          <div className="mt-3 flex items-center gap-1.5">
+            <span className="inline-flex min-w-0 flex-1 items-center gap-1.5 rounded-full border border-border bg-white px-2 py-1 text-[10.5px] font-semibold text-ink shadow-sm">
+              <span className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-warning/20 text-[8px] font-black text-warning">
                 0%
               </span>
-              <img
-                src={tbiLogo.url}
-                alt="TBI Bank"
-                className="h-3.5 w-auto object-contain"
-              />
-              <span className="hidden sm:inline">лизинг</span>
+              <img src={tbiLogo.url} alt="TBI Bank" className="h-3 w-auto shrink-0 object-contain" />
             </span>
             {product.price >= 200 && (
-              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-2.5 py-1.5 text-[11px] font-semibold text-ink shadow-sm">
-                <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success/15 text-success">
-                  <Truck className="h-3 w-3" strokeWidth={2.5} />
+              <span className="inline-flex min-w-0 flex-1 items-center gap-1.5 rounded-full border border-border bg-white px-2 py-1 text-[10.5px] font-semibold text-ink shadow-sm">
+                <span className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-success/15 text-success">
+                  <Truck className="h-2.5 w-2.5" strokeWidth={2.5} />
                 </span>
-                Безплатна доставка
+                <span className="truncate">Безплатна доставка</span>
               </span>
             )}
           </div>
