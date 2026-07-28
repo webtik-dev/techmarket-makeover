@@ -140,6 +140,15 @@ function CategoryPage() {
                 Следваща <ChevronRight className="h-4 w-4" />
               </button>
             </div>
+
+            {/* Category description */}
+            <div className="mt-8 rounded-2xl bg-card p-6 shadow-card md:p-8">
+              <h2 className="font-display text-xl font-black text-ink md:text-2xl">{cat.name}</h2>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+                Разгледай нашата селекция от {cat.name.toLowerCase()} на водещи марки. Официална гаранция,
+                експресна доставка и професионална консултация от екипа на Techmarket.bg.
+              </p>
+            </div>
           </div>
         </div>
       </main>
