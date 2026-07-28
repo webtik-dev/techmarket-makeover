@@ -59,53 +59,16 @@ function CategoryPage() {
 
         {/* Layout */}
         <div className="container-tm mt-6 grid gap-6 lg:grid-cols-[280px_1fr]">
-          {/* Filters */}
+          {/* Filters (desktop) */}
           <aside className="hidden lg:block">
             <div className="sticky top-32 space-y-4">
               <div className="rounded-xl bg-card p-5 shadow-card">
-                <div className="mb-4 flex items-center justify-between">
-                  <div className="flex items-center gap-2 font-bold text-ink">
-                    <SlidersHorizontal className="h-4 w-4" /> Филтри
-                  </div>
-                  <button className="text-xs font-semibold text-brand hover:underline">Изчисти</button>
-                </div>
-
-                {/* Applied chips */}
-                <div className="mb-4 flex flex-wrap gap-1.5">
-                  {["ASUS", "16 GB", "В наличност"].map(chip => (
-                    <span key={chip} className="inline-flex items-center gap-1 rounded-full bg-brand/10 px-2 py-1 text-xs font-semibold text-brand">
-                      {chip} <X className="h-3 w-3 cursor-pointer" />
-                    </span>
-                  ))}
-                </div>
-
-                {/* Price */}
-                <FilterBlock title="Цена">
-                  <div className="grid grid-cols-2 gap-2">
-                    <input type="number" placeholder="от" className="h-10 rounded-lg border border-border bg-surface px-3 text-sm focus:border-brand focus:outline-none" />
-                    <input type="number" placeholder="до" className="h-10 rounded-lg border border-border bg-surface px-3 text-sm focus:border-brand focus:outline-none" />
-                  </div>
-                  <button className="mt-2 h-9 w-full rounded-lg bg-ink text-xs font-bold text-white hover:bg-brand">Приложи</button>
-                </FilterBlock>
-
-                {filterGroups.map(g => (
-                  <FilterBlock key={g.title} title={g.title}>
-                    <ul className="space-y-2 text-sm">
-                      {g.options.map(o => (
-                        <li key={o}>
-                          <label className="flex cursor-pointer items-center gap-2.5 text-ink hover:text-brand">
-                            <input type="checkbox" className="h-4 w-4 accent-[color:var(--brand)]" />
-                            <span>{o}</span>
-                            <span className="ml-auto text-xs text-muted-foreground">{Math.floor(Math.random() * 80) + 5}</span>
-                          </label>
-                        </li>
-                      ))}
-                    </ul>
-                  </FilterBlock>
-                ))}
+                <FiltersHeader />
+                <FiltersBody />
               </div>
             </div>
           </aside>
+
 
           {/* Product grid */}
           <div className="min-w-0">
