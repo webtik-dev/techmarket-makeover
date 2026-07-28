@@ -12,8 +12,8 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "Techmarket.bg — Лаптопи, смартфони и техника на топ цени" },
       { name: "description", content: "Пазарувай онлайн от 45 000+ продукта. Експресна доставка, гаранция и лесни връщания." },
-      { property: "og:title", content: "Techmarket.bg — Онлайн магазин за техника" },
-      { property: "og:description", content: "Топ цени, експресна доставка и официална гаранция." },
+      { property: "og:title", content: "Techmarket.bg — Лаптопи, смартфони и техника на топ цени" },
+      { property: "og:description", content: "Пазарувай онлайн от 45 000+ продукта. Експресна доставка, гаранция и лесни връщания." },
     ],
   }),
   component: HomePage,
