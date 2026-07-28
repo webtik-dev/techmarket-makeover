@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Search, ShoppingCart, User, Heart, Menu, ChevronDown, GitCompareArrows, X, Trash2 } from "lucide-react";
+import { Search, ShoppingCart, User, Heart, ChevronDown, GitCompareArrows, X, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { categories } from "@/lib/mock-data";
 import logoAsset from "@/assets/techmarket-logo.svg.asset.json";
@@ -75,7 +75,11 @@ function MenuDropdown() {
         aria-label="Меню"
         className="inline-flex items-center gap-2 rounded-full px-2 py-2 text-[14px] font-medium text-ink transition hover:text-brand"
       >
-        <Menu className="h-5 w-5" strokeWidth={1.5} />
+        <span aria-hidden className="inline-flex h-5 w-5 flex-col items-start justify-center gap-[4px]">
+          <span className="block h-[2px] w-5 rounded-full bg-current" />
+          <span className="block h-[2px] w-3 rounded-full bg-current" />
+          <span className="block h-[2px] w-5 rounded-full bg-current" />
+        </span>
         <span className="hidden sm:inline">Меню</span>
         <ChevronDown className={`hidden h-3.5 w-3.5 text-muted-foreground transition sm:inline ${open ? "rotate-180" : ""}`} />
       </button>
