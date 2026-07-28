@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { Heart, Star, ShoppingCart, GitCompareArrows } from "lucide-react";
+import { Heart, Star, ShoppingCart, GitCompareArrows, Truck } from "lucide-react";
 import type { Product } from "@/lib/mock-data";
 import { ProductImage } from "./ProductImage";
+import tbiLogo from "@/assets/tbi-bank.svg.asset.json";
+
 
 const stockText: Record<Product["stock"], { text: string; dot: string }> = {
   in: { text: "В наличност", dot: "bg-success" },
