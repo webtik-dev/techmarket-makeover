@@ -2,11 +2,35 @@
 @source "../src";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: "Avenir Next Cyr";
+  src: url("/__l5e/assets-v1/202e5f7e-8c85-4b61-a259-f41f08462343/avenir-next-cyr-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenir Next Cyr";
+  src: url("/__l5e/assets-v1/667c19ed-2147-4ba5-a843-1a0fbe9139a1/avenir-next-cyr-demi.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenir Next Cyr";
+  src: url("/__l5e/assets-v1/4fc735f9-51cc-4ad0-9025-7ea81967c4cc/avenir-next-cyr-italic.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Barlow Condensed", "Inter", sans-serif;
+  --font-sans: "Avenir Next Cyr", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Avenir Next Cyr", ui-sans-serif, system-ui, sans-serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
