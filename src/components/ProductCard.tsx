@@ -24,8 +24,8 @@ export function ProductCard({ product }: { product: Product }) {
     : 0;
   const s = stockText[product.stock];
 
-  const priceEur = product.price / BGN_PER_EUR;
-  const oldEur = product.oldPrice ? product.oldPrice / BGN_PER_EUR : null;
+  const priceBgn = product.price * BGN_PER_EUR;
+  const oldBgn = product.oldPrice ? product.oldPrice * BGN_PER_EUR : null;
 
   return (
     <article className="group relative flex h-full flex-col rounded-2xl bg-card p-3 transition duration-200 hover:shadow-pop">
@@ -71,22 +71,26 @@ export function ProductCard({ product }: { product: Product }) {
           {product.name}
         </Link>
 
-        {/* Price BGN primary, old price strikethrough */}
+        {/* Price EUR primary, BGN converted; strike old prices when on sale */}
         <div className="mt-auto pt-3">
           <div className="flex items-baseline gap-2">
             <div className="font-display text-[22px] font-black leading-none text-brand">
-              {product.price.toFixed(2)}
-              <span className="ml-0.5 text-sm font-bold">лв.</span>
+              {formatEUR(product.price)}
+              <span className="ml-0.5 text-sm font-bold">€</span>
             </div>
             {product.oldPrice && (
               <div className="text-xs text-muted-foreground line-through">
-                {product.oldPrice.toFixed(2)} лв.
+                {formatEUR(product.oldPrice)} €
               </div>
             )}
           </div>
-          <div className="mt-0.5 text-[11px] text-muted-foreground">
-            {formatEUR(priceEur)} €
+          <div className="mt-0.5 flex items-baseline gap-1.5 text-[11px] text-muted-foreground">
+            <span>{formatEUR(priceBgn)} лв.</span>
+            {oldBgn && (
+              <span className="line-through">{formatEUR(oldBgn)} лв.</span>
+            )}
           </div>
+
 
 
           {/* Perks — stacked, single-line text */}
