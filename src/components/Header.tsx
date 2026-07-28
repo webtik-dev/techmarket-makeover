@@ -74,16 +74,18 @@ function MenuDropdown() {
       <button
         aria-label="Меню"
         className={`relative z-50 inline-flex items-center gap-2 rounded-full px-3 py-2 text-[14px] font-medium transition ${
-          open ? "bg-brand text-white rounded-b-none pb-3 -mb-1" : "text-ink hover:text-brand"
+          open
+            ? "bg-brand/15 text-brand rounded-b-none pb-3 -mb-1"
+            : "text-ink hover:bg-brand/15 hover:text-brand"
         }`}
       >
         <span aria-hidden className="inline-flex h-5 w-5 flex-col items-start justify-center gap-[4px]">
-          <span className={`block h-[2px] w-5 rounded-full ${open ? "bg-white" : "bg-current"}`} />
-          <span className={`block h-[2px] w-3 rounded-full ${open ? "bg-white" : "bg-current"}`} />
-          <span className={`block h-[2px] w-5 rounded-full ${open ? "bg-white" : "bg-current"}`} />
+          <span className={`block h-[2px] w-5 rounded-full ${open ? "bg-brand" : "bg-current"}`} />
+          <span className={`block h-[2px] w-3 rounded-full ${open ? "bg-brand" : "bg-current"}`} />
+          <span className={`block h-[2px] w-5 rounded-full ${open ? "bg-brand" : "bg-current"}`} />
         </span>
         <span className="hidden sm:inline italic">Меню</span>
-        <ChevronDown className={`hidden h-3.5 w-3.5 transition sm:inline ${open ? "rotate-180 text-white" : "text-muted-foreground"}`} />
+        <ChevronDown className={`hidden h-3.5 w-3.5 transition sm:inline ${open ? "rotate-180 text-brand" : "text-muted-foreground"}`} />
       </button>
 
       {open && (
