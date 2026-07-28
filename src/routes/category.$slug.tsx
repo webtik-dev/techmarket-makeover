@@ -105,6 +105,9 @@ function CategoryPage() {
               <button className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand px-4 text-sm font-bold text-brand-foreground lg:hidden">
                 <SlidersHorizontal className="h-4 w-4" /> Филтри
               </button>
+              <div className="text-sm text-muted-foreground">
+                Намерени <span className="font-bold text-ink">{items.length}</span> продукта
+              </div>
               <div className="flex items-center gap-2 text-sm">
                 <label className="text-muted-foreground">Сортирай:</label>
                 <button className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-border bg-surface px-3 font-semibold text-ink hover:border-brand">
