@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronRight, SlidersHorizontal, Grid3x3, List, ChevronDown, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
 import { categories, productsByCategory } from "@/lib/mock-data";
+
 
 export const Route = createFileRoute("/category/$slug")({
   head: ({ params }) => {
