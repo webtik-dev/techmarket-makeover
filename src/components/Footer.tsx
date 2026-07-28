@@ -1,4 +1,5 @@
 import { Instagram, Youtube, Facebook, Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import logoAsset from "@/assets/techmarket-logo.svg.asset.json";
 
 const columns = [
   {
@@ -48,9 +49,8 @@ export function Footer() {
       {/* Columns */}
       <div className="container-tm grid gap-12 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
-          <div className="flex items-baseline gap-0.5 font-display">
-            <span className="text-2xl font-black">techmarket</span>
-            <span className="h-2 w-2 rounded-full bg-brand" />
+          <div className="rounded-xl bg-white p-4 inline-block">
+            <img src={logoAsset.url} alt="Techmarket" className="h-10 w-auto" />
           </div>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
             Над 45 000 продукта, експресна доставка и официална гаранция за твоите технологични нужди.

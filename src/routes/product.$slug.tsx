@@ -90,7 +90,7 @@ function ProductPage() {
                 {product.oldPrice && (
                   <div className="flex items-center gap-2">
                     <span className="text-sm text-muted-foreground line-through">
-                      {product.oldPrice.toFixed(2)} лв.
+                      {(product.oldPrice / 1.95583).toFixed(2)} €
                     </span>
                     <span className="inline-flex items-center rounded-md bg-brand px-2 py-0.5 text-xs font-bold text-brand-foreground">
                       −{discount}%
@@ -98,10 +98,10 @@ function ProductPage() {
                   </div>
                 )}
                 <div className="mt-1 font-display text-4xl font-black text-price leading-none">
-                  {product.price.toFixed(2)} лв.
+                  {(product.price / 1.95583).toFixed(2)} €
                 </div>
                 <div className="mt-1 text-xs text-muted-foreground">
-                  {(product.price / 1.95583).toFixed(2)} € · Или на 12 вноски от {(product.price / 12).toFixed(2)} лв.
+                  {product.price.toFixed(2)} лв. · Или на 12 вноски от {(product.price / 12 / 1.95583).toFixed(2)} €
                 </div>
               </div>
 
@@ -136,7 +136,10 @@ function ProductPage() {
 
         {/* Related */}
         <section className="container-tm mt-10">
-          <h2 className="mb-5 font-display text-2xl font-black text-ink md:text-3xl">Подобни продукти</h2>
+          <div className="mb-8 flex flex-col items-center text-center">
+            <h2 className="font-display text-3xl font-black uppercase tracking-tight text-ink md:text-4xl">Подобни продукти</h2>
+            <span className="mt-3 h-1 w-16 rounded-full bg-brand" />
+          </div>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-5">
             {related.map(p => <ProductCard key={p.id} product={p} />)}
           </div>
