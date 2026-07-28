@@ -128,11 +128,105 @@ function CategoryPage() {
             </div>
           </div>
         </div>
+
+        {/* Mobile filter drawer */}
+        <div
+          className={`fixed inset-0 z-50 lg:hidden ${filtersOpen ? "pointer-events-auto" : "pointer-events-none"}`}
+          aria-hidden={!filtersOpen}
+        >
+          <div
+            onClick={() => setFiltersOpen(false)}
+            className={`absolute inset-0 bg-ink/50 transition-opacity duration-300 ${filtersOpen ? "opacity-100" : "opacity-0"}`}
+          />
+          <aside
+            className={`absolute inset-y-0 left-0 flex w-[92%] max-w-md flex-col bg-background shadow-pop transition-transform duration-300 ${
+              filtersOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            <div className="flex h-14 shrink-0 items-center justify-between border-b border-border px-4">
+              <div className="flex items-center gap-2 font-bold text-ink">
+                <SlidersHorizontal className="h-4 w-4" /> Филтри
+              </div>
+              <button
+                type="button"
+                aria-label="Затвори"
+                onClick={() => setFiltersOpen(false)}
+                className="grid h-9 w-9 place-items-center rounded-full text-ink-soft hover:bg-surface hover:text-brand"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-5">
+              <FiltersBody />
+            </div>
+            <div className="grid shrink-0 grid-cols-2 gap-2 border-t border-border p-3">
+              <button className="h-11 rounded-lg bg-surface text-sm font-semibold text-ink hover:bg-surface-2">Изчисти</button>
+              <button
+                onClick={() => setFiltersOpen(false)}
+                className="h-11 rounded-lg bg-brand text-sm font-bold text-white hover:bg-brand-dark"
+              >
+                Покажи {items.length}
+              </button>
+            </div>
+          </aside>
+        </div>
       </main>
       <Footer />
     </>
   );
 }
+
+function FiltersHeader() {
+  return (
+    <>
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-2 font-bold text-ink">
+          <SlidersHorizontal className="h-4 w-4" /> Филтри
+        </div>
+        <button className="text-xs font-semibold text-brand hover:underline">Изчисти</button>
+      </div>
+    </>
+  );
+}
+
+function FiltersBody() {
+  return (
+    <>
+      <div className="mb-4 flex flex-wrap gap-1.5">
+        {["ASUS", "16 GB", "В наличност"].map(chip => (
+          <span key={chip} className="inline-flex items-center gap-1 rounded-full bg-brand/10 px-2 py-1 text-xs font-semibold text-brand">
+            {chip} <X className="h-3 w-3 cursor-pointer" />
+          </span>
+        ))}
+      </div>
+
+      <FilterBlock title="Цена">
+        <div className="grid grid-cols-2 gap-2">
+          <input type="number" placeholder="от" className="h-10 rounded-lg border border-border bg-surface px-3 text-sm focus:border-brand focus:outline-none" />
+          <input type="number" placeholder="до" className="h-10 rounded-lg border border-border bg-surface px-3 text-sm focus:border-brand focus:outline-none" />
+        </div>
+        <button className="mt-2 h-9 w-full rounded-lg bg-ink text-xs font-bold text-white hover:bg-brand">Приложи</button>
+      </FilterBlock>
+
+      {filterGroups.map(g => (
+        <FilterBlock key={g.title} title={g.title}>
+          <ul className="space-y-2 text-sm">
+            {g.options.map(o => (
+              <li key={o}>
+                <label className="flex cursor-pointer items-center gap-2.5 text-ink hover:text-brand">
+                  <input type="checkbox" className="h-4 w-4 accent-[color:var(--brand)]" />
+                  <span>{o}</span>
+                  <span className="ml-auto text-xs text-muted-foreground">{Math.floor(Math.random() * 80) + 5}</span>
+                </label>
+              </li>
+            ))}
+          </ul>
+        </FilterBlock>
+      ))}
+    </>
+  );
+}
+
 
 function FilterBlock({ title, children }: { title: string; children: React.ReactNode }) {
   return (
