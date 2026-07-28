@@ -88,26 +88,21 @@ export function ProductCard({ product }: { product: Product }) {
             {product.price.toFixed(2)} лв.
           </div>
 
-          {/* Perks — stacked, multi-line */}
+          {/* Perks — stacked, single-line text */}
           <div className="mt-3 flex flex-col gap-1.5">
-            <span className="inline-flex items-center gap-2 rounded-xl bg-warning/10 px-2.5 py-1.5 text-[11px] font-semibold text-ink leading-tight">
-              <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-warning text-[10px] font-black text-white">
+            <span className="inline-flex items-center gap-2 rounded-xl bg-warning/10 px-2.5 py-1.5 text-[11px] font-semibold text-ink leading-none">
+              <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-warning text-[9px] font-black text-white">
                 0%
               </span>
-              <span className="flex flex-col">
-                <img src={tbiLogo.url} alt="TBI Bank" className="h-3.5 w-auto shrink-0 object-contain" />
-                <span>лизинг</span>
-              </span>
+              <img src={tbiLogo.url} alt="TBI Bank" className="h-4.5 w-auto shrink-0 object-contain" />
+              <span className="whitespace-nowrap">лизинг</span>
             </span>
             {product.price >= 200 && (
-              <span className="inline-flex items-center gap-2 rounded-xl bg-success/10 px-2.5 py-1.5 text-[11px] font-semibold text-ink leading-tight">
-                <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-success text-white">
-                  <Truck className="h-3.5 w-3.5" strokeWidth={2.5} />
+              <span className="inline-flex items-center gap-2 rounded-xl bg-success/10 px-2.5 py-1.5 text-[11px] font-semibold text-ink leading-none">
+                <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success text-white">
+                  <Truck className="h-3 w-3" strokeWidth={2.5} />
                 </span>
-                <span className="flex flex-col">
-                  <span>Безплатна</span>
-                  <span>доставка</span>
-                </span>
+                <span className="whitespace-nowrap">Безплатна доставка</span>
               </span>
             )}
           </div>
