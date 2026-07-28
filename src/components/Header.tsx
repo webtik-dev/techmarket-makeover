@@ -3,6 +3,7 @@ import { Search, ShoppingCart, User, Heart, ChevronDown, GitCompareArrows, X, Tr
 import { useState } from "react";
 import { categories } from "@/lib/mock-data";
 import logoAsset from "@/assets/techmarket-logo.svg.asset.json";
+import faviAsset from "@/assets/favi.svg.asset.json";
 
 const mockCart = [
   { id: 1, name: "Apple iPhone 15 Pro 256GB Natural Titanium", price: 2399.0, qty: 1, hue: 220 },
@@ -73,19 +74,19 @@ function MenuDropdown() {
     >
       <button
         aria-label="Меню"
-        className={`relative z-50 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-[14px] font-medium transition ${
+        className={`group relative z-50 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-[14px] font-medium transition ${
           open
-            ? "bg-brand/12 text-brand rounded-b-none pb-3 -mb-1"
-            : "text-ink hover:bg-brand/10 hover:text-brand"
+            ? "bg-brand text-white rounded-b-none pb-3 -mb-1"
+            : "text-ink hover:bg-brand hover:text-white"
         }`}
       >
         <span aria-hidden className="inline-flex h-5 w-5 flex-col items-start justify-center gap-[4px]">
-          <span className={`block h-[2px] w-5 rounded-full ${open ? "bg-brand" : "bg-current"}`} />
-          <span className={`block h-[2px] w-3 rounded-full ${open ? "bg-brand" : "bg-current"}`} />
-          <span className={`block h-[2px] w-5 rounded-full ${open ? "bg-brand" : "bg-current"}`} />
+          <span className={`block h-[2px] w-5 rounded-full ${open ? "bg-white" : "bg-current"}`} />
+          <span className={`block h-[2px] w-3 rounded-full ${open ? "bg-white" : "bg-current"}`} />
+          <span className={`block h-[2px] w-5 rounded-full ${open ? "bg-white" : "bg-current"}`} />
         </span>
         <span className="hidden sm:inline italic">Меню</span>
-        <ChevronDown className={`hidden h-3.5 w-3.5 transition sm:inline ${open ? "rotate-180 text-brand" : "text-muted-foreground"}`} />
+        <ChevronDown className={`hidden h-3.5 w-3.5 transition sm:inline ${open ? "rotate-180" : "opacity-60"}`} />
       </button>
 
       {open && (
@@ -114,24 +115,32 @@ function MenuDropdown() {
                 })}
               </ul>
 
-              <div className="p-6">
-                <Link
-                  to="/category/$slug"
-                  params={{ slug: active }}
-                  className="mb-4 block font-display text-[20px] font-semibold text-ink transition hover:text-brand"
-                >
-                  {categories.find((c) => c.slug === active)?.name}
-                </Link>
-                <ul className="space-y-2">
-                  {subcatsFor(active).map((s) => (
-                    <li key={s} className="flex items-start gap-2 text-[13px] text-ink-soft">
-                      <span aria-hidden className="mt-[7px] inline-block h-1 w-1 shrink-0 rounded-full bg-ink-soft" />
-                      <a href="#" className="transition hover:text-brand">
-                        {s}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+              <div className="relative overflow-hidden p-6">
+                <img
+                  src={faviAsset.url}
+                  alt=""
+                  aria-hidden
+                  className="pointer-events-none absolute bottom-4 right-4 h-28 w-28 opacity-[0.06]"
+                />
+                <div className="relative z-10">
+                  <Link
+                    to="/category/$slug"
+                    params={{ slug: active }}
+                    className="mb-4 block font-display text-[20px] font-semibold text-ink transition hover:text-brand"
+                  >
+                    {categories.find((c) => c.slug === active)?.name}
+                  </Link>
+                  <ul className="space-y-2">
+                    {subcatsFor(active).map((s) => (
+                      <li key={s} className="flex items-start gap-2 text-[13px] text-ink-soft">
+                        <span aria-hidden className="mt-[7px] inline-block h-1 w-1 shrink-0 rounded-full bg-ink-soft" />
+                        <a href="#" className="transition hover:text-brand">
+                          {s}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
