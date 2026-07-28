@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router";
-import { Heart, GitCompareArrows, Star, Truck, ChevronRight } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 import type { Product } from "@/lib/mock-data";
 import { ProductImage } from "./ProductImage";
 
-const stockText: Record<Product["stock"], { text: string; cls: string }> = {
-  in: { text: "В наличност", cls: "text-success" },
-  low: { text: "Последни бройки", cls: "text-warning" },
-  order: { text: "По заявка", cls: "text-muted-foreground" },
-  out: { text: "Няма наличност", cls: "text-destructive" },
+const stockText: Record<Product["stock"], { text: string; dot: string }> = {
+  in: { text: "В наличност", dot: "bg-success" },
+  low: { text: "Последни бройки", dot: "bg-warning" },
+  order: { text: "По заявка", dot: "bg-muted-foreground" },
+  out: { text: "Изчерпан", dot: "bg-destructive" },
 };
 
 function formatPrice(n: number) {
@@ -18,93 +18,72 @@ export function ProductCard({ product }: { product: Product }) {
   const discount = product.oldPrice
     ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
     : 0;
-  const stars = Math.round(product.rating);
   const s = stockText[product.stock];
 
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-brand/50 hover:shadow-pop">
-      {/* Top-left promo pill (Technopolis-style) */}
-      {(product.badges.includes("promo") || discount > 0) && (
-        <div className="absolute left-3 top-3 z-10">
-          <span className="inline-flex items-center rounded-md bg-brand px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-brand-foreground">
-            От брошурата
-          </span>
-        </div>
-      )}
-
-      {/* Quick actions */}
-      <div className="absolute right-2 top-2 z-10 flex flex-col gap-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
-        <button
-          type="button"
-          aria-label="Добави в любими"
-          className="grid h-9 w-9 place-items-center rounded-full bg-white text-ink shadow-card hover:text-brand"
-        >
-          <Heart className="h-4 w-4" />
-        </button>
-        <button
-          type="button"
-          aria-label="Сравни"
-          className="grid h-9 w-9 place-items-center rounded-full bg-white text-ink shadow-card hover:text-brand"
-        >
-          <GitCompareArrows className="h-4 w-4" />
-        </button>
-      </div>
-
+    <article className="group relative flex h-full flex-col rounded-2xl bg-card p-3 transition duration-200 hover:shadow-pop">
       {/* Image */}
       <Link
         to="/product/$slug"
         params={{ slug: product.slug }}
-        className="block aspect-square w-full overflow-hidden bg-white"
+        className="relative block aspect-square w-full overflow-hidden rounded-xl bg-surface"
       >
         <ProductImage hue={product.hue} name={product.name} />
+
+        {discount > 0 && (
+          <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-brand px-2 py-1 text-[11px] font-bold leading-none text-white">
+            −{discount}%
+          </span>
+        )}
+        {product.badges.includes("new") && discount === 0 && (
+          <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-ink px-2 py-1 text-[11px] font-semibold leading-none text-white">
+            Ново
+          </span>
+        )}
+
+        <button
+          type="button"
+          aria-label="Добави в любими"
+          className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-background/90 text-ink shadow-card backdrop-blur transition hover:bg-white hover:text-brand"
+        >
+          <Heart className="h-4 w-4" strokeWidth={1.75} />
+        </button>
       </Link>
 
       {/* Body */}
-      <div className="flex flex-1 flex-col gap-2 p-4">
+      <div className="flex flex-1 flex-col gap-2 px-1 pt-4">
+        <div className="flex items-center justify-between text-[11px] font-medium text-muted-foreground">
+          <span className="uppercase tracking-wider">{product.brand}</span>
+          <span className="inline-flex items-center gap-1 text-ink-soft">
+            <Star className="h-3 w-3 fill-warning text-warning" />
+            {product.rating.toFixed(1)}
+            <span className="text-muted-foreground">({product.reviews})</span>
+          </span>
+        </div>
+
         <Link
           to="/product/$slug"
           params={{ slug: product.slug }}
-          className="line-clamp-2 min-h-[2.75rem] text-[13px] font-medium text-ink hover:text-brand"
+          className="line-clamp-2 min-h-[2.5rem] text-[14px] font-semibold leading-snug text-ink hover:text-brand"
         >
-          {product.brand} {product.name}
+          {product.name}
         </Link>
 
-        {/* Rating */}
-        <div className="flex items-center gap-1">
-          <div className="flex" aria-label={`Оценка ${product.rating.toFixed(1)}`}>
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star
-                key={i}
-                className={`h-3.5 w-3.5 ${i < stars ? "fill-warning text-warning" : "text-border"}`}
-              />
-            ))}
-          </div>
-          <span className="text-xs text-muted-foreground">(от {product.reviews} ревюта)</span>
+        <div className="flex items-center gap-1.5 text-[11px] font-medium text-ink-soft">
+          <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />
+          {s.text}
         </div>
 
-        {/* Options link (Technopolis-style) */}
-        <a href="#" className="inline-flex items-center gap-0.5 text-xs font-semibold text-brand hover:underline">
-          Виж опции за взимане и доставка <ChevronRight className="h-3 w-3" />
-        </a>
-
-        {product.badges.includes("free-shipping") && (
-          <div className="flex items-center gap-1 text-[11px] font-medium text-success">
-            <Truck className="h-3 w-3" /> Безплатна доставка
-          </div>
-        )}
-
-        <div className={`mt-1 text-[11px] font-semibold ${s.cls}`}>{s.text}</div>
-
-        {/* Price block */}
+        {/* Price */}
         <div className="mt-auto pt-3">
-          <div className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">Цена:</div>
-          <div className="mt-0.5 flex items-baseline gap-2">
-            <div className="font-display text-2xl font-black text-ink leading-none">
-              {formatPrice(product.price)} <span className="text-base">лв.</span>
+          <div className="flex items-baseline gap-2">
+            <div className="font-display text-[22px] font-black leading-none text-ink">
+              {formatPrice(product.price)}
+              <span className="ml-0.5 text-sm font-bold">лв.</span>
             </div>
             {product.oldPrice && (
               <div className="text-xs text-muted-foreground line-through">
-                {formatPrice(product.oldPrice)} лв.
+                {formatPrice(product.oldPrice)}
               </div>
             )}
           </div>
@@ -115,9 +94,9 @@ export function ProductCard({ product }: { product: Product }) {
           <button
             type="button"
             disabled={product.stock === "out"}
-            className="mt-3 inline-flex h-10 w-full items-center justify-center rounded-full bg-brand px-4 text-xs font-bold uppercase tracking-wide text-brand-foreground transition-colors hover:bg-brand-dark disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground"
+            className="mt-3 inline-flex h-10 w-full items-center justify-center rounded-full bg-ink px-4 text-[13px] font-semibold text-white transition hover:bg-brand disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-muted-foreground"
           >
-            Купи
+            Добави в количката
           </button>
         </div>
       </div>
