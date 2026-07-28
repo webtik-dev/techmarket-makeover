@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Star, ChevronLeft, ChevronRight, User } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { ProductImage } from "./ProductImage";
+
 
 const reviews = [
   {
