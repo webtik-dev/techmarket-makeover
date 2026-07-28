@@ -80,7 +80,7 @@ function MenuDropdown() {
           <span className="block h-[2px] w-3 rounded-full bg-current" />
           <span className="block h-[2px] w-5 rounded-full bg-current" />
         </span>
-        <span className="hidden sm:inline">Меню</span>
+        <span className="hidden sm:inline italic">Меню</span>
         <ChevronDown className={`hidden h-3.5 w-3.5 text-muted-foreground transition sm:inline ${open ? "rotate-180" : ""}`} />
       </button>
 
