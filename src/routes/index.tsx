@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CategoryCarousel } from "@/components/CategoryCarousel";
-import { PromoBlock } from "@/components/PromoBlock";
 import { Benefits } from "@/components/Benefits";
 import { ProductSection } from "@/components/ProductSection";
 import { BrandsStrip } from "@/components/BrandsStrip";
@@ -26,9 +25,8 @@ function HomePage() {
       <Header />
       <main>
         <CategoryCarousel />
-        <PromoBlock />
-        <ProductSection eyebrow="Топ оферти" title="Промоционални продукти" products={products.slice(0, 10)} accent />
         <Benefits />
+        <ProductSection eyebrow="Топ оферти" title="Актуални предложения" products={products.slice(0, 10)} accent />
         <ProductSection eyebrow="Хит на седмицата" title="Най-продавани" products={products.slice(10, 20)} />
         <BrandsStrip />
         <ProductSection eyebrow="Точно сега" title="Нови продукти" products={products.slice(4, 14)} />
