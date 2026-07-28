@@ -128,13 +128,14 @@ export function Reviews() {
         <div className="overflow-hidden">
           <div
             className="flex gap-4 transition-transform duration-300 ease-out"
-            style={{ transform: `translateX(-${page * (100 / itemsPerPage + 2)}%)` }}
+            style={{ transform: `translateX(calc(-${safePage * 100}% - ${safePage} * 1rem))` }}
           >
             {reviews.map((r) => (
               <article
                 key={r.name + r.date}
-                className="w-[calc(50%-0.5rem)] shrink-0 rounded-2xl border border-border bg-surface p-5 transition hover:bg-card hover:shadow-pop md:p-6"
+                className="w-full shrink-0 rounded-2xl border border-border bg-surface p-5 transition hover:bg-card hover:shadow-pop md:w-[calc(50%-0.5rem)] md:p-6"
               >
+
                 {/* Stars */}
                 <div className="mb-4 flex items-center gap-0.5">
                   {Array.from({ length: r.rating }).map((_, i) => (
