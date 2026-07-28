@@ -73,10 +73,10 @@ function MenuDropdown() {
     >
       <button
         aria-label="Меню"
-        className={`relative z-50 inline-flex items-center gap-2 rounded-full px-3 py-2 text-[14px] font-medium transition ${
+        className={`relative z-50 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-[14px] font-medium transition ${
           open
-            ? "bg-brand/15 text-brand rounded-b-none pb-3 -mb-1"
-            : "text-ink hover:bg-brand/15 hover:text-brand"
+            ? "bg-brand/12 text-brand rounded-b-none pb-3 -mb-1"
+            : "text-ink hover:bg-brand/10 hover:text-brand"
         }`}
       >
         <span aria-hidden className="inline-flex h-5 w-5 flex-col items-start justify-center gap-[4px]">
@@ -90,7 +90,7 @@ function MenuDropdown() {
 
       {open && (
         <div className="absolute left-0 top-full z-40 w-[760px] max-w-[92vw]">
-          <div className="overflow-hidden rounded-2xl rounded-tl-none border border-brand bg-background shadow-pop">
+          <div className="overflow-hidden rounded-xl rounded-tl-none border border-brand bg-background shadow-pop">
             <div className="grid grid-cols-[300px_1fr]">
               <ul className="max-h-[520px] overflow-y-auto bg-brand py-2">
                 {categories.map((c) => {
