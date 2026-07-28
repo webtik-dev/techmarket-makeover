@@ -28,7 +28,7 @@ export function ProductCard({ product }: { product: Product }) {
   const oldBgn = product.oldPrice ? product.oldPrice * BGN_PER_EUR : null;
 
   return (
-    <article className="group relative flex h-full flex-col rounded-2xl bg-card p-3 transition duration-200 hover:shadow-pop">
+    <article className="group relative flex h-full flex-col rounded-2xl bg-card p-2 transition duration-200 hover:shadow-pop sm:p-3">
       {/* Image */}
       <Link
         to="/product/$slug"
@@ -38,16 +38,17 @@ export function ProductCard({ product }: { product: Product }) {
         <ProductImage hue={product.hue} name={product.name} />
 
         {discount > 0 && (
-          <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-brand px-2.5 py-1 text-[11px] font-black leading-none text-white shadow-brand">
+          <span className="absolute left-2 top-2 inline-flex items-center rounded-full bg-brand px-2 py-0.5 text-[10px] font-black leading-none text-white shadow-brand sm:left-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[11px]">
             −{discount}%
           </span>
         )}
         {product.badges.includes("new") && discount === 0 && (
-          <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-ink px-2.5 py-1 text-[11px] font-semibold leading-none text-white">
+          <span className="absolute left-2 top-2 inline-flex items-center rounded-full bg-ink px-2 py-0.5 text-[10px] font-semibold leading-none text-white sm:left-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[11px]">
             Ново
           </span>
         )}
       </Link>
+
 
       {/* Body */}
       <div className="flex flex-1 flex-col gap-2 px-1 pt-4">
