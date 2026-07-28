@@ -1,73 +1,187 @@
-import { Star, Quote } from "lucide-react";
+import { useState } from "react";
+import { Star, ChevronLeft, ChevronRight, User } from "lucide-react";
+import { ProductImage } from "./ProductImage";
 
 const reviews = [
   {
-    name: "Мария Петрова",
-    location: "София",
+    name: "Радостин",
+    date: "17.06.2026",
     rating: 5,
+    title: "Отличен продукт и бърза доставка",
+    text: "Телевизорът има добро качество на картината и ясен звук. Работи бързо и е лесен за настройка. Подходящ е за филми и YouTube на добра цена.",
+    product: "METZ Телевизор 40MTF6000Z 40\" FullHD, LED TV, черен",
+    productHue: 220,
+  },
+  {
+    name: "Петьо Еремиев",
+    date: "17.06.2026",
+    rating: 5,
+    title: "Много удобна и лесна за ползване",
+    text: "Добре се чува и бързо се свързва с телефона. Батерията издържа цял ден при активно ползване. Препоръчвам за всеки, който търси качествен продукт.",
+    product: "HAMA Блутут слушалка „My Voice Advanced\", черен",
+    productHue: 260,
+  },
+  {
+    name: "Мария Петрова",
+    date: "15.06.2026",
+    rating: 5,
+    title: "Професионално обслужване",
     text: "Изключително бърза доставка и професионално обслужване. Лаптопът пристигна на следващия ден, добре опакован. Определено ще пазарувам отново!",
     product: "Лаптоп ASUS TUF Gaming",
+    productHue: 30,
   },
   {
     name: "Георги Иванов",
-    location: "Пловдив",
+    date: "12.06.2026",
     rating: 5,
+    title: "Голямо разнообразие и добри цени",
     text: "Много добри цени и голямо разнообразие от продукти. Консултантът беше изключително отзивчив и ми помогна да избера правилния монитор.",
     product: "Монитор Samsung Odyssey",
-  },
-  {
-    name: "Николай Димитров",
-    location: "Варна",
-    rating: 5,
-    text: "Поръчвам от Techmarket от години. Винаги оригинални продукти, коректна гаранция и безпроблемно връщане при нужда. Препоръчвам!",
-    product: "Телевизор METZ QLED",
-  },
-  {
-    name: "Стефка Колева",
-    location: "Бургас",
-    rating: 5,
-    text: "Възползвах се от лизинга през TBI Bank — процесът беше бърз и лесен. Телефонът е точно както е описан, много съм доволна.",
-    product: "Samsung Galaxy S25",
+    productHue: 200,
   },
 ];
 
+const AVERAGE_RATING = 5.0;
+
 export function Reviews() {
+  const [page, setPage] = useState(0);
+  const itemsPerPage = 2;
+  const totalPages = Math.ceil(reviews.length / itemsPerPage);
+
+  const canPrev = page > 0;
+  const canNext = page < totalPages - 1;
+
+  const goPrev = () => setPage((p) => Math.max(0, p - 1));
+  const goNext = () => setPage((p) => Math.min(totalPages - 1, p + 1));
+
+  const visible = reviews.slice(page * itemsPerPage, page * itemsPerPage + itemsPerPage);
+
   return (
     <section className="container-tm py-10">
-      <div className="mb-8 text-center">
-        <h2 className="font-display text-2xl font-bold tracking-tight text-ink md:text-[28px]">
-          Какво казват нашите клиенти
+      {/* Header */}
+      <div className="mb-6">
+        <h2 className="font-display text-xl font-bold tracking-tight text-ink md:text-2xl">
+          Отзиви от клиенти
         </h2>
-        <p className="mt-2 text-sm text-ink/60">
-          Над 12 000 доволни клиенти всеки месец
+        <p className="mt-1 text-sm text-muted-foreground">
+          Обща оценка от реални ревюта за продукти в магазина.
         </p>
-      </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {reviews.map((r) => (
-          <article
-            key={r.name}
-            className="relative flex flex-col rounded-2xl bg-surface p-5 transition hover:bg-white hover:shadow-md"
-          >
-            <Quote className="absolute right-4 top-4 h-6 w-6 text-brand/15" aria-hidden />
-
-            <div className="mb-3 flex items-center gap-1">
-              {Array.from({ length: r.rating }).map((_, i) => (
-                <Star key={i} className="h-4 w-4 fill-warning text-warning" aria-hidden />
+        <div className="mt-4 flex items-center gap-3">
+          <span className="font-display text-5xl font-black leading-none text-ink md:text-6xl">
+            {AVERAGE_RATING.toFixed(1).replace(".", ",")}
+          </span>
+          <div className="flex flex-col gap-0.5">
+            <div className="flex items-center gap-0.5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
+                  key={i}
+                  className="h-4 w-4 fill-warning text-warning"
+                  aria-hidden
+                />
               ))}
             </div>
+            <span className="text-xs text-muted-foreground">
+              ({reviews.length} отзива)
+            </span>
+          </div>
+        </div>
+      </div>
 
-            <p className="mb-4 flex-1 text-sm leading-relaxed text-ink/80">
-              "{r.text}"
-            </p>
+      {/* Carousel */}
+      <div className="relative">
+        <div className="overflow-hidden">
+          <div
+            className="flex gap-4 transition-transform duration-300 ease-out"
+            style={{ transform: `translateX(-${page * (100 / itemsPerPage + 2)}%)` }}
+          >
+            {reviews.map((r) => (
+              <article
+                key={r.name + r.date}
+                className="w-[calc(50%-0.5rem)] shrink-0 rounded-2xl border border-border bg-surface p-5 transition hover:bg-card hover:shadow-pop md:p-6"
+              >
+                {/* Stars */}
+                <div className="mb-4 flex items-center gap-0.5">
+                  {Array.from({ length: r.rating }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className="h-4 w-4 fill-warning text-warning"
+                      aria-hidden
+                    />
+                  ))}
+                </div>
 
-            <div className="border-t border-border/60 pt-3">
-              <div className="text-sm font-semibold text-ink">{r.name}</div>
-              <div className="text-xs text-ink/50">{r.location}</div>
-              <div className="mt-1 text-xs text-brand">{r.product}</div>
-            </div>
-          </article>
-        ))}
+                {/* Author */}
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted">
+                      <User className="h-5 w-5 text-muted-foreground" />
+                    </span>
+                    <span className="text-sm font-semibold text-ink">
+                      {r.name}
+                    </span>
+                  </div>
+                  <span className="text-xs text-muted-foreground">{r.date}</span>
+                </div>
+
+                {/* Review title */}
+                <h3 className="mb-2 text-base font-bold leading-snug text-ink">
+                  {r.title}
+                </h3>
+
+                {/* Review text */}
+                <p className="mb-4 text-sm leading-relaxed text-ink/80 line-clamp-4">
+                  {r.text}
+                </p>
+
+                {/* Product info */}
+                <div className="border-t border-border/60 pt-4">
+                  <p className="mb-3 text-xs text-muted-foreground">
+                    Продукт: <span className="text-ink">{r.product}</span>
+                  </p>
+                  <div className="h-20 w-20 overflow-hidden rounded-xl bg-surface">
+                    <ProductImage hue={r.productHue} name={r.product} />
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        {/* Arrows */}
+        <button
+          type="button"
+          onClick={goPrev}
+          disabled={!canPrev}
+          aria-label="Предишни отзиви"
+          className="absolute -left-3 top-1/2 z-10 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-brand text-white shadow-pop transition hover:bg-brand-dark disabled:pointer-events-none disabled:opacity-40 md:-left-4 md:h-9 md:w-9"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          type="button"
+          onClick={goNext}
+          disabled={!canNext}
+          aria-label="Следващи отзиви"
+          className="absolute -right-3 top-1/2 z-10 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-brand text-white shadow-pop transition hover:bg-brand-dark disabled:pointer-events-none disabled:opacity-40 md:-right-4 md:h-9 md:w-9"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+
+        {/* Dots */}
+        <div className="mt-5 flex items-center justify-center gap-2">
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setPage(i)}
+              aria-label={`Отиди на страница ${i + 1}`}
+              className={`h-2.5 w-2.5 rounded-full transition ${
+                i === page ? "bg-brand" : "bg-border hover:bg-muted-foreground/50"
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
