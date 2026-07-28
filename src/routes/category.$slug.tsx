@@ -34,6 +34,13 @@ function CategoryPage() {
   const { slug } = Route.useParams();
   const cat = categories.find(c => c.slug === slug) ?? categories[0];
   const items = productsByCategory(slug);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = filtersOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [filtersOpen]);
+
 
   return (
     <>
