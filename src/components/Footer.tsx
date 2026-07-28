@@ -1,90 +1,93 @@
-import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import { Instagram, Youtube, Facebook, Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 
 const columns = [
   {
     title: "Обслужване",
-    links: ["Контакти", "Магазини", "Помощен център", "Често задавани въпроси", "Рекламации"],
+    links: ["Контакти", "Магазини", "Помощен център", "ЧЗВ", "Рекламации"],
   },
   {
-    title: "Поръчки и доставка",
-    links: ["Начини на плащане", "Доставка", "Проследяване", "Гаранция", "Връщане на стока"],
+    title: "Поръчки",
+    links: ["Начини на плащане", "Доставка", "Проследяване", "Гаранция", "Връщане"],
   },
   {
     title: "За Techmarket",
     links: ["За нас", "Кариери", "Партньори", "Блог", "Промоции"],
   },
-  {
-    title: "Категории",
-    links: ["Лаптопи", "Смартфони", "Телевизори", "Аудио", "Гейминг"],
-  },
 ];
 
 export function Footer() {
   return (
-    <footer className="mt-16 border-t border-border bg-ink text-white">
-      <div className="container-tm py-14">
-        {/* Newsletter */}
-        <div className="mb-12 grid gap-6 rounded-2xl bg-gradient-to-r from-brand to-brand-dark p-6 md:grid-cols-[1fr_auto] md:items-center md:p-8">
+    <footer className="mt-16 bg-ink text-white">
+      {/* Newsletter */}
+      <div className="border-b border-white/10">
+        <div className="container-tm grid gap-8 py-12 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-16">
           <div>
-            <h3 className="text-2xl font-black">Абонирай се и получи −10%</h3>
-            <p className="mt-1 text-sm text-white/85">Промоции, ексклузивни оферти и новини първи в твоя имейл.</p>
+            <h3 className="font-display text-3xl font-black leading-tight md:text-4xl">
+              Абонирай се <span className="text-brand">и спести 10%</span>
+            </h3>
+            <p className="mt-2 text-sm text-white/60">
+              Първи научавай за оферти, нови продукти и ексклузивни намаления.
+            </p>
           </div>
-          <form className="flex w-full gap-2 md:w-auto">
+          <form className="flex h-14 items-center overflow-hidden rounded-full bg-white/10 pl-6 backdrop-blur">
             <input
               type="email"
               placeholder="Твоят имейл адрес"
-              className="h-12 min-w-0 flex-1 rounded-lg bg-white px-4 text-sm text-ink placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-white md:w-80"
+              className="min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/50 focus:outline-none"
             />
-            <button className="h-12 shrink-0 rounded-lg bg-ink px-5 text-sm font-bold text-white hover:bg-ink-soft">
-              Абонирай се
+            <button
+              className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-brand px-5 text-sm font-semibold text-white transition hover:bg-white hover:text-ink"
+              aria-label="Абонирай се"
+            >
+              Абонирай се <ArrowRight className="h-4 w-4" />
             </button>
           </form>
         </div>
+      </div>
 
-        {/* Columns */}
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
-          <div>
-            <div className="mb-4 flex items-center gap-2">
-              <div className="grid h-10 w-10 place-items-center rounded-lg bg-brand text-white">
-                <span className="text-lg font-black">T</span>
-              </div>
-              <div className="font-display text-xl font-black">TECHMARKET</div>
-            </div>
-            <p className="text-sm text-white/70">
-              Твоят технологичен магазин с над 45 000 продукта, експресна доставка и гаранция на всяка покупка.
-            </p>
-            <ul className="mt-5 space-y-2 text-sm text-white/80">
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-brand" /> 0700 12 345</li>
-              <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-brand" /> office@techmarket.bg</li>
-              <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-brand" /> София, ул. Технологична 1</li>
-            </ul>
+      {/* Columns */}
+      <div className="container-tm grid gap-12 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div>
+          <div className="flex items-baseline gap-0.5 font-display">
+            <span className="text-2xl font-black">techmarket</span>
+            <span className="h-2 w-2 rounded-full bg-brand" />
           </div>
-
-          {columns.map(col => (
-            <div key={col.title}>
-              <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">{col.title}</h4>
-              <ul className="space-y-2.5 text-sm text-white/70">
-                {col.links.map(l => (
-                  <li key={l}><a href="#" className="hover:text-brand">{l}</a></li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
+            Над 45 000 продукта, експресна доставка и официална гаранция за твоите технологични нужди.
+          </p>
+          <ul className="mt-6 space-y-3 text-sm text-white/70">
+            <li className="flex items-center gap-3"><Phone className="h-4 w-4 text-brand" /> 0700 12 345</li>
+            <li className="flex items-center gap-3"><Mail className="h-4 w-4 text-brand" /> office@techmarket.bg</li>
+            <li className="flex items-center gap-3"><MapPin className="h-4 w-4 text-brand" /> София, ул. Технологична 1</li>
+          </ul>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-6 md:flex-row md:items-center">
-          <div className="text-xs text-white/60">© 2026 Techmarket.bg · Всички права запазени</div>
-          <div className="flex items-center gap-3">
+        {columns.map((col) => (
+          <div key={col.title}>
+            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.2em] text-white/50">{col.title}</h4>
+            <ul className="space-y-3 text-sm text-white/75">
+              {col.links.map((l) => (
+                <li key={l}><a href="#" className="transition hover:text-brand">{l}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      {/* Bottom */}
+      <div className="border-t border-white/10">
+        <div className="container-tm flex flex-col items-start justify-between gap-4 py-6 md:flex-row md:items-center">
+          <div className="text-xs text-white/50">© 2026 Techmarket.bg · Всички права запазени</div>
+          <div className="flex items-center gap-2">
             {[Facebook, Instagram, Youtube].map((I, i) => (
-              <a key={i} href="#" aria-label="social" className="grid h-9 w-9 place-items-center rounded-full bg-white/10 hover:bg-brand">
+              <a key={i} href="#" aria-label="social" className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/70 transition hover:border-brand hover:text-brand">
                 <I className="h-4 w-4" />
               </a>
             ))}
           </div>
-          <div className="flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-white/50">
-            {["Visa", "Mastercard", "Borica", "PayPal", "Наложен платеж"].map(p => (
-              <span key={p} className="rounded border border-white/15 px-2 py-1">{p}</span>
+          <div className="flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-white/40">
+            {["Visa", "Mastercard", "Borica", "PayPal"].map((p) => (
+              <span key={p} className="rounded-md border border-white/10 px-2 py-1">{p}</span>
             ))}
           </div>
         </div>
