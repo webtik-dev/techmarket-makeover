@@ -72,7 +72,7 @@ export function ProductCard({ product }: { product: Product }) {
         </Link>
 
         {/* Price EUR primary, BGN converted; strike old prices when on sale */}
-        <div className="mt-auto border-t border-border/40 pt-2">
+        <div className="mt-auto pt-2">
           <div className="flex items-baseline justify-between gap-2">
             <div className="font-display text-[22px] font-black leading-none text-brand">
               {formatEUR(product.price)}
