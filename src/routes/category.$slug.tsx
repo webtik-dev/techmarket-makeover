@@ -108,30 +108,35 @@ function CategoryPage() {
           </aside>
 
           {/* Product grid */}
-          <div>
+          <div className="min-w-0">
             {/* Toolbar */}
-            <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-card p-3 shadow-card">
-              <button className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand px-4 text-sm font-bold text-brand-foreground lg:hidden">
+            <div className="mb-4 grid grid-cols-[1fr_auto] items-center gap-2 rounded-xl bg-card p-2.5 shadow-card sm:flex sm:flex-wrap sm:gap-3 sm:p-3">
+              <button
+                type="button"
+                onClick={() => setFiltersOpen(true)}
+                className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand px-3 text-sm font-bold text-brand-foreground sm:px-4 lg:hidden"
+              >
                 <SlidersHorizontal className="h-4 w-4" /> Филтри
               </button>
-              <div className="text-sm text-muted-foreground">
-                Намерени <span className="font-bold text-ink">{items.length}</span> продукта
+              <div className="text-xs text-muted-foreground sm:text-sm">
+                <span className="font-bold text-ink">{items.length}</span> продукта
               </div>
-              <div className="flex items-center gap-2 text-sm">
-                <label className="text-muted-foreground">Сортирай:</label>
-                <button className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-border bg-surface px-3 font-semibold text-ink hover:border-brand">
+              <div className="col-span-2 flex items-center gap-2 text-xs sm:col-auto sm:text-sm">
+                <label className="hidden text-muted-foreground sm:inline">Сортирай:</label>
+                <button className="inline-flex h-10 flex-1 items-center justify-between gap-1.5 rounded-lg border border-border bg-surface px-3 font-semibold text-ink hover:border-brand sm:flex-none">
                   Най-популярни <ChevronDown className="h-4 w-4" />
                 </button>
               </div>
-              <div className="ml-auto flex items-center gap-1 rounded-lg border border-border bg-surface p-1">
+              <div className="ml-auto hidden items-center gap-1 rounded-lg border border-border bg-surface p-1 sm:flex">
                 <button aria-label="Grid" className="grid h-8 w-8 place-items-center rounded-md bg-brand text-brand-foreground"><Grid3x3 className="h-4 w-4" /></button>
                 <button aria-label="List" className="grid h-8 w-8 place-items-center rounded-md text-ink hover:text-brand"><List className="h-4 w-4" /></button>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-3 md:gap-4 xl:grid-cols-4">
               {items.map(p => <ProductCard key={p.id} product={p} />)}
             </div>
+
 
             {/* Pagination */}
             <div className="mt-8 flex items-center justify-center gap-1">
