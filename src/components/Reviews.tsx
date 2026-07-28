@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { ProductImage } from "./ProductImage";
+import { useIsMobile } from "@/hooks/use-mobile";
+
 
 
 const reviews = [
