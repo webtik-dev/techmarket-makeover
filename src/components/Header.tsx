@@ -73,22 +73,24 @@ function MenuDropdown() {
     >
       <button
         aria-label="Меню"
-        className="inline-flex items-center gap-2 rounded-full px-2 py-2 text-[14px] font-medium text-ink transition hover:text-brand"
+        className={`relative z-50 inline-flex items-center gap-2 rounded-full px-3 py-2 text-[14px] font-medium transition ${
+          open ? "bg-brand text-white rounded-b-none pb-3 -mb-1" : "text-ink hover:text-brand"
+        }`}
       >
         <span aria-hidden className="inline-flex h-5 w-5 flex-col items-start justify-center gap-[4px]">
-          <span className="block h-[2px] w-5 rounded-full bg-current" />
-          <span className="block h-[2px] w-3 rounded-full bg-current" />
-          <span className="block h-[2px] w-5 rounded-full bg-current" />
+          <span className={`block h-[2px] w-5 rounded-full ${open ? "bg-white" : "bg-current"}`} />
+          <span className={`block h-[2px] w-3 rounded-full ${open ? "bg-white" : "bg-current"}`} />
+          <span className={`block h-[2px] w-5 rounded-full ${open ? "bg-white" : "bg-current"}`} />
         </span>
         <span className="hidden sm:inline italic">Меню</span>
-        <ChevronDown className={`hidden h-3.5 w-3.5 text-muted-foreground transition sm:inline ${open ? "rotate-180" : ""}`} />
+        <ChevronDown className={`hidden h-3.5 w-3.5 transition sm:inline ${open ? "rotate-180 text-white" : "text-muted-foreground"}`} />
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full z-50 w-[760px] max-w-[92vw] pt-3">
-          <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-pop">
+        <div className="absolute left-0 top-full z-40 w-[760px] max-w-[92vw]">
+          <div className="overflow-hidden rounded-2xl rounded-tl-none border border-brand bg-background shadow-pop">
             <div className="grid grid-cols-[300px_1fr]">
-              <ul className="max-h-[520px] overflow-y-auto border-r border-border py-2">
+              <ul className="max-h-[520px] overflow-y-auto bg-brand py-2">
                 {categories.map((c) => {
                   const Icon = c.icon;
                   const isActive = c.slug === active;
@@ -99,7 +101,7 @@ function MenuDropdown() {
                         params={{ slug: c.slug }}
                         onMouseEnter={() => setActive(c.slug)}
                         className={`flex items-center gap-3 px-5 py-2.5 text-[13px] transition ${
-                          isActive ? "bg-surface text-brand font-semibold" : "text-ink hover:bg-surface hover:text-brand"
+                          isActive ? "bg-brand-dark text-white font-semibold" : "text-white/85 hover:bg-brand-dark hover:text-white"
                         }`}
                       >
                         <Icon className="h-4 w-4 shrink-0" strokeWidth={1.75} />
@@ -136,6 +138,7 @@ function MenuDropdown() {
     </div>
   );
 }
+
 
 function CartButton({ count, items }: { count: number; items: typeof mockCart }) {
   const [open, setOpen] = useState(false);
