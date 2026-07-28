@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { ProductImage } from "./ProductImage";
+import { useIsMobile } from "@/hooks/use-mobile";
+
 
 
 const reviews = [
@@ -76,15 +78,18 @@ function Avatar({ name }: { name: string }) {
 }
 
 export function Reviews() {
+  const isMobile = useIsMobile();
+  const itemsPerPage = isMobile ? 1 : 2;
   const [page, setPage] = useState(0);
-  const itemsPerPage = 2;
-  const totalPages = Math.ceil(reviews.length / itemsPerPage);
+  const totalPages = Math.max(1, Math.ceil(reviews.length / itemsPerPage));
+  const safePage = Math.min(page, totalPages - 1);
 
-  const canPrev = page > 0;
-  const canNext = page < totalPages - 1;
+  const canPrev = safePage > 0;
+  const canNext = safePage < totalPages - 1;
 
   const goPrev = () => setPage((p) => Math.max(0, p - 1));
   const goNext = () => setPage((p) => Math.min(totalPages - 1, p + 1));
+
 
   return (
     <section className="container-tm py-10">
@@ -123,13 +128,14 @@ export function Reviews() {
         <div className="overflow-hidden">
           <div
             className="flex gap-4 transition-transform duration-300 ease-out"
-            style={{ transform: `translateX(-${page * (100 / itemsPerPage + 2)}%)` }}
+            style={{ transform: `translateX(calc(-${safePage * 100}% - ${safePage} * 1rem))` }}
           >
             {reviews.map((r) => (
               <article
                 key={r.name + r.date}
-                className="w-[calc(50%-0.5rem)] shrink-0 rounded-2xl border border-border bg-surface p-5 transition hover:bg-card hover:shadow-pop md:p-6"
+                className="w-full shrink-0 rounded-2xl border border-border bg-surface p-5 transition hover:bg-card hover:shadow-pop md:w-[calc(50%-0.5rem)] md:p-6"
               >
+
                 {/* Stars */}
                 <div className="mb-4 flex items-center gap-0.5">
                   {Array.from({ length: r.rating }).map((_, i) => (
@@ -205,7 +211,7 @@ export function Reviews() {
               onClick={() => setPage(i)}
               aria-label={`Отиди на страница ${i + 1}`}
               className={`h-2.5 w-2.5 rounded-full transition ${
-                i === page ? "bg-brand" : "bg-border hover:bg-muted-foreground/50"
+                i === safePage ? "bg-brand" : "bg-border hover:bg-muted-foreground/50"
               }`}
             />
           ))}

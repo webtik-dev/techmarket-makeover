@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Search, ShoppingCart, User, Heart, ChevronDown, GitCompareArrows, X, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { Search, ShoppingCart, User, Heart, ChevronDown, ChevronLeft, ChevronRight, GitCompareArrows, X, Trash2, Menu as MenuIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import { categories } from "@/lib/mock-data";
 import logoAsset from "@/assets/techmarket-logo.svg.asset.json";
 import faviAsset from "@/assets/favi.svg.asset.json";
@@ -11,44 +11,6 @@ const mockCart = [
 ];
 const BGN_PER_EUR = 1.95583;
 const fmtEUR = (n: number) => (n / BGN_PER_EUR).toLocaleString("bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-export function Header() {
-  const cartCount = mockCart.reduce((a, i) => a + i.qty, 0);
-
-  return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
-      <div className="container-tm flex h-16 items-center gap-4 md:gap-6">
-        {/* Logo */}
-        <Link to="/" className="shrink-0" aria-label="Techmarket">
-          <img src={logoAsset.url} alt="Techmarket" className="h-8 w-auto" />
-        </Link>
-
-        {/* Menu (categories) */}
-        <MenuDropdown />
-
-        {/* Search — takes remaining width */}
-        <form role="search" className="hidden min-w-0 flex-1 md:block">
-          <label className="group relative flex h-10 items-center rounded-full bg-surface transition focus-within:bg-background focus-within:ring-2 focus-within:ring-brand/30">
-            <Search className="ml-4 h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2} />
-            <input
-              type="search"
-              placeholder="Търсете сред 32 047 продукти.."
-              className="h-full w-full min-w-0 bg-transparent px-3 text-[13px] text-ink placeholder:text-muted-foreground focus:outline-none"
-            />
-          </label>
-        </form>
-
-        {/* Actions */}
-        <div className="ml-auto flex items-center gap-1 md:ml-0">
-          <IconAction icon={User} label="Профил" />
-          <IconAction icon={Heart} label="Любими" badge={3} />
-          <IconAction icon={GitCompareArrows} label="Сравни" badge={2} />
-          <CartButton count={cartCount} items={mockCart} />
-        </div>
-      </div>
-    </header>
-  );
-}
 
 const subcatsFor = (slug: string): string[] => {
   const map: Record<string, string[]> = {
@@ -61,6 +23,75 @@ const subcatsFor = (slug: string): string[] => {
   };
   return map[slug] ?? ["Разгледай всички", "Промоции", "Нови", "Топ продажби", "Аксесоари", "Марки"];
 };
+
+export function Header() {
+  const cartCount = mockCart.reduce((a, i) => a + i.qty, 0);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
+      <div className="container-tm flex h-14 items-center gap-2 md:h-16 md:gap-6">
+        {/* Mobile hamburger */}
+        <button
+          type="button"
+          aria-label="Отвори меню"
+          onClick={() => setMobileOpen(true)}
+          className="-ml-2 grid h-10 w-10 shrink-0 place-items-center rounded-lg text-ink md:hidden"
+        >
+          <MenuIcon className="h-5 w-5" strokeWidth={2} />
+        </button>
+
+        {/* Logo */}
+        <Link to="/" className="shrink-0" aria-label="Techmarket">
+          <img src={logoAsset.url} alt="Techmarket" className="h-7 w-auto md:h-8" />
+        </Link>
+
+        {/* Desktop menu */}
+        <div className="hidden md:block">
+          <MenuDropdown />
+        </div>
+
+        {/* Search — desktop */}
+        <form role="search" className="hidden min-w-0 flex-1 md:block">
+          <label className="group relative flex h-10 items-center rounded-full bg-surface transition focus-within:bg-background focus-within:ring-2 focus-within:ring-brand/30">
+            <Search className="ml-4 h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2} />
+            <input
+              type="search"
+              placeholder="Търсете сред 32 047 продукти.."
+              className="h-full w-full min-w-0 bg-transparent px-3 text-[13px] text-ink placeholder:text-muted-foreground focus:outline-none"
+            />
+          </label>
+        </form>
+
+        {/* Actions */}
+        <div className="ml-auto flex items-center gap-0.5 md:ml-0 md:gap-1">
+          <div className="hidden md:flex md:items-center md:gap-1">
+            <IconAction icon={User} label="Профил" />
+            <IconAction icon={Heart} label="Любими" badge={3} />
+            <IconAction icon={GitCompareArrows} label="Сравни" badge={2} />
+          </div>
+          <CartButton count={cartCount} items={mockCart} />
+        </div>
+      </div>
+
+      {/* Mobile search row */}
+      <div className="container-tm pb-3 md:hidden">
+        <form role="search">
+          <label className="group relative flex h-10 items-center rounded-full bg-surface transition focus-within:bg-background focus-within:ring-2 focus-within:ring-brand/30">
+            <Search className="ml-4 h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2} />
+            <input
+              type="search"
+              placeholder="Търсете продукти..."
+              className="h-full w-full min-w-0 bg-transparent px-3 text-[13px] text-ink placeholder:text-muted-foreground focus:outline-none"
+            />
+          </label>
+        </form>
+      </div>
+
+      <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} />
+    </header>
+  );
+}
 
 function MenuDropdown() {
   const [open, setOpen] = useState(false);
@@ -150,6 +181,147 @@ function MenuDropdown() {
   );
 }
 
+function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) setActiveSlug(null);
+  }, [open]);
+
+  const activeCat = categories.find((c) => c.slug === activeSlug);
+
+  return (
+    <div
+      className={`fixed inset-0 z-50 md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}
+      aria-hidden={!open}
+    >
+      {/* Backdrop */}
+      <div
+        onClick={onClose}
+        className={`absolute inset-0 bg-ink/50 transition-opacity duration-300 ${open ? "opacity-100" : "opacity-0"}`}
+      />
+
+      {/* Panel */}
+      <aside
+        className={`absolute inset-y-0 left-0 w-[88%] max-w-sm overflow-hidden bg-background shadow-pop transition-transform duration-300 ${
+          open ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        {/* Header bar */}
+        <div className="flex h-14 items-center justify-between border-b border-border bg-brand px-4 text-white">
+          <span className="font-display text-base font-bold italic">Меню</span>
+          <button
+            type="button"
+            aria-label="Затвори меню"
+            onClick={onClose}
+            className="grid h-9 w-9 place-items-center rounded-full text-white/90 hover:bg-white/10"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        {/* Sliding pane container */}
+        <div className="relative h-[calc(100%-3.5rem)] overflow-hidden">
+          <div
+            className="flex h-full w-[200%] transition-transform duration-300 ease-out"
+            style={{ transform: activeSlug ? "translateX(-50%)" : "translateX(0)" }}
+          >
+            {/* Level 1: categories */}
+            <nav className="h-full w-1/2 overflow-y-auto">
+              <ul className="divide-y divide-border">
+                {categories.map((c) => {
+                  const Icon = c.icon;
+                  return (
+                    <li key={c.slug}>
+                      <button
+                        type="button"
+                        onClick={() => setActiveSlug(c.slug)}
+                        className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-[14px] font-medium text-ink transition hover:bg-surface"
+                      >
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-surface text-brand">
+                          <Icon className="h-4 w-4" strokeWidth={1.75} />
+                        </span>
+                        <span className="min-w-0 flex-1 truncate">{c.name}</span>
+                        <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <div className="mt-4 space-y-1 border-t border-border px-2 py-3">
+                <MobileQuickLink icon={User} label="Профил" />
+                <MobileQuickLink icon={Heart} label="Любими" badge={3} />
+                <MobileQuickLink icon={GitCompareArrows} label="Сравни" badge={2} />
+              </div>
+            </nav>
+
+            {/* Level 2: subcategories */}
+            <div className="h-full w-1/2 overflow-y-auto bg-background">
+              <button
+                type="button"
+                onClick={() => setActiveSlug(null)}
+                className="sticky top-0 z-10 flex w-full items-center gap-2 border-b border-border bg-background px-4 py-3 text-left text-[13px] font-semibold text-ink"
+              >
+                <ChevronLeft className="h-4 w-4 text-muted-foreground" />
+                <span>Всички категории</span>
+              </button>
+
+              {activeCat && (
+                <div className="px-5 pb-8 pt-4">
+                  <Link
+                    to="/category/$slug"
+                    params={{ slug: activeCat.slug }}
+                    onClick={onClose}
+                    className="block font-display text-lg font-bold text-ink"
+                  >
+                    {activeCat.name}
+                  </Link>
+                  <ul className="mt-4 space-y-1">
+                    {subcatsFor(activeCat.slug).map((s) => (
+                      <li key={s}>
+                        <a
+                          href="#"
+                          onClick={onClose}
+                          className="flex items-center justify-between rounded-lg px-3 py-2.5 text-[14px] text-ink transition hover:bg-surface hover:text-brand"
+                        >
+                          <span>{s}</span>
+                          <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  );
+}
+
+function MobileQuickLink({ icon: Icon, label, badge }: { icon: typeof X; label: string; badge?: number }) {
+  return (
+    <button
+      type="button"
+      className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-ink hover:bg-surface"
+    >
+      <Icon className="h-4 w-4 text-muted-foreground" strokeWidth={1.75} />
+      <span className="flex-1">{label}</span>
+      {badge !== undefined && (
+        <span className="grid h-5 min-w-5 place-items-center rounded-full bg-brand px-1.5 text-[10px] font-bold text-white">
+          {badge}
+        </span>
+      )}
+    </button>
+  );
+}
 
 function CartButton({ count, items }: { count: number; items: typeof mockCart }) {
   const [open, setOpen] = useState(false);
@@ -175,7 +347,7 @@ function CartButton({ count, items }: { count: number; items: typeof mockCart })
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full z-50 w-[360px] pt-3">
+        <div className="absolute right-0 top-full z-50 hidden w-[360px] pt-3 md:block">
           <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-pop">
             <div className="flex items-center justify-between border-b border-border px-4 py-3">
               <div className="text-[13px] font-semibold text-ink">
@@ -192,7 +364,7 @@ function CartButton({ count, items }: { count: number; items: typeof mockCart })
               </div>
             ) : (
               <>
-                <ul className="max-h-[320px] overflow-y-auto divide-y divide-border">
+                <ul className="max-h-[320px] divide-y divide-border overflow-y-auto">
                   {items.map((it) => (
                     <li key={it.id} className="flex items-start gap-3 px-4 py-3">
                       <div

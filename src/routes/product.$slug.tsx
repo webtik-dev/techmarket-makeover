@@ -47,12 +47,12 @@ function ProductPage() {
           </nav>
         </div>
 
-        <div className="container-tm mt-4 grid gap-6 lg:grid-cols-[1fr_400px]">
+        <div className="container-tm mt-4 grid gap-4 md:gap-6 lg:grid-cols-[1fr_400px]">
           {/* Gallery + info */}
-          <div className="grid gap-6 rounded-2xl bg-card p-6 shadow-card md:grid-cols-[100px_1fr] md:p-8">
-            <div className="order-2 flex gap-2 md:order-1 md:flex-col">
+          <div className="grid gap-4 rounded-2xl bg-card p-4 shadow-card md:grid-cols-[100px_1fr] md:gap-6 md:p-8">
+            <div className="order-2 flex gap-2 overflow-x-auto md:order-1 md:flex-col md:overflow-visible">
               {[0, 1, 2, 3].map(i => (
-                <button key={i} className="aspect-square w-20 shrink-0 overflow-hidden rounded-lg border-2 border-border hover:border-brand md:w-full">
+                <button key={i} className="aspect-square w-16 shrink-0 overflow-hidden rounded-lg border-2 border-border hover:border-brand sm:w-20 md:w-full">
                   <ProductImage hue={(product.hue + i * 30) % 360} name={product.name} />
                 </button>
               ))}
@@ -64,12 +64,13 @@ function ProductPage() {
             </div>
           </div>
 
+
           {/* Sticky buy panel */}
           <aside className="space-y-4">
-            <div className="rounded-2xl bg-card p-6 shadow-card">
+            <div className="rounded-2xl bg-card p-5 shadow-card md:p-6">
               <div className="text-xs font-bold uppercase tracking-wider text-brand">{product.brand}</div>
-              <h1 className="mt-1 font-display text-2xl font-black text-ink md:text-3xl">{product.name}</h1>
-              <div className="mt-2 flex items-center gap-3 text-sm">
+              <h1 className="mt-1 font-display text-xl font-black text-ink sm:text-2xl md:text-3xl">{product.name}</h1>
+              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm">
                 <div className="flex items-center gap-1">
                   <Star className="h-4 w-4 fill-warning text-warning" />
                   <span className="font-bold text-ink">{product.rating.toFixed(1)}</span>
@@ -77,6 +78,7 @@ function ProductPage() {
                 </div>
                 <span className="text-muted-foreground">SKU: TM-{product.id.toUpperCase()}</span>
               </div>
+
 
               <ul className="mt-4 space-y-1.5 text-sm text-ink">
                 {product.specs.map((s: string, i: number) => (
