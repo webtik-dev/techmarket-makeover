@@ -81,21 +81,6 @@ export function CategoryCarousel() {
 
   return (
     <section className="container-tm pt-8">
-      <div className="mb-8 flex flex-col items-center text-center">
-        <h2 className="font-display text-3xl font-black uppercase tracking-tight text-ink md:text-4xl">
-          Пазарувай по категория
-        </h2>
-        <span className="mt-3 h-1 w-16 rounded-full bg-brand" />
-        <div className="mt-5 hidden items-center gap-2 md:flex">
-          <button onClick={scrollPrev} aria-label="Предишен" className="grid h-10 w-10 place-items-center rounded-full border border-border bg-background text-ink transition hover:border-brand hover:text-brand">
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button onClick={scrollNext} aria-label="Следващ" className="grid h-10 w-10 place-items-center rounded-full border border-border bg-background text-ink transition hover:border-brand hover:text-brand">
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex gap-4">
           {banners.map((b, i) => {
@@ -105,7 +90,7 @@ export function CategoryCarousel() {
               <a
                 key={i}
                 href="#"
-                className="group relative flex aspect-[4/5] min-w-0 flex-[0_0_78%] flex-col justify-between overflow-hidden rounded-3xl p-6 transition sm:aspect-[4/5] sm:flex-[0_0_45%] md:aspect-[3/4] md:flex-[0_0_calc((100%-2rem)/3)] md:p-7 lg:flex-[0_0_calc((100%-3rem)/4)]"
+                className="group relative flex aspect-[4/5] min-w-0 flex-[0_0_78%] flex-col justify-between overflow-hidden rounded-2xl p-6 transition sm:aspect-[4/5] sm:flex-[0_0_45%] md:aspect-[3/4] md:flex-[0_0_calc((100%-2rem)/3)] md:p-7 lg:flex-[0_0_calc((100%-3rem)/4)]"
                 style={{ background: b.bg }}
               >
                 <div className="flex items-start justify-between">
@@ -147,17 +132,36 @@ export function CategoryCarousel() {
         </div>
       </div>
 
-      {/* Dots */}
-      <div className="mt-6 flex items-center justify-center gap-1.5 md:hidden">
-        {snaps.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => emblaApi?.scrollTo(i)}
-            aria-label={`Слайд ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all ${i === selected ? "w-6 bg-ink" : "w-1.5 bg-ink/20"}`}
-          />
-        ))}
+      {/* Controls: elongated arrows + dots, centered */}
+      <div className="mt-6 flex items-center justify-center gap-4">
+        <button
+          onClick={scrollPrev}
+          aria-label="Предишен"
+          className="inline-flex h-9 w-14 items-center justify-center rounded-full text-ink-soft transition hover:text-brand"
+        >
+          <ChevronLeft className="h-6 w-8" strokeWidth={1.75} />
+        </button>
+
+        <div className="flex items-center gap-1.5">
+          {snaps.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => emblaApi?.scrollTo(i)}
+              aria-label={`Слайд ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all ${i === selected ? "w-6 bg-ink" : "w-1.5 bg-ink/20"}`}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={scrollNext}
+          aria-label="Следващ"
+          className="inline-flex h-9 w-14 items-center justify-center rounded-full text-ink-soft transition hover:text-brand"
+        >
+          <ChevronRight className="h-6 w-8" strokeWidth={1.75} />
+        </button>
       </div>
     </section>
   );
 }
+
