@@ -89,19 +89,20 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
 
           {/* Perks — single row, side-by-side */}
-          <div className="mt-3 flex items-center gap-1.5">
-            <span className="inline-flex min-w-0 flex-1 items-center gap-1.5 rounded-full border border-border bg-white px-2 py-1 text-[10.5px] font-semibold text-ink shadow-sm">
-              <span className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-warning/20 text-[8px] font-black text-warning">
+          <div className="mt-3 flex items-center gap-2">
+            <span className="inline-flex flex-1 items-center justify-center gap-1 rounded-full bg-warning/10 px-1.5 py-1 text-[10px] font-semibold text-ink whitespace-nowrap">
+              <span className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-warning text-[8px] font-black text-white">
                 0%
               </span>
               <img src={tbiLogo.url} alt="TBI Bank" className="h-3 w-auto shrink-0 object-contain" />
+              <span>лизинг</span>
             </span>
             {product.price >= 200 && (
-              <span className="inline-flex min-w-0 flex-1 items-center gap-1.5 rounded-full border border-border bg-white px-2 py-1 text-[10.5px] font-semibold text-ink shadow-sm">
-                <span className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-success/15 text-success">
+              <span className="inline-flex flex-1 items-center justify-center gap-1 rounded-full bg-success/10 px-1.5 py-1 text-[10px] font-semibold text-ink whitespace-nowrap">
+                <span className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-success text-white">
                   <Truck className="h-2.5 w-2.5" strokeWidth={2.5} />
                 </span>
-                <span className="truncate">Безплатна доставка</span>
+                <span>Безплатна доставка</span>
               </span>
             )}
           </div>
