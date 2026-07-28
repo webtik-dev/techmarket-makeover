@@ -79,7 +79,7 @@ function ProductPage() {
               </div>
 
               <ul className="mt-4 space-y-1.5 text-sm text-ink">
-                {product.specs.map((s, i) => (
+                {product.specs.map((s: string, i: number) => (
                   <li key={i} className="flex items-start gap-2">
                     <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand" /> {s}
                   </li>
