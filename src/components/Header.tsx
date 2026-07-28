@@ -1,28 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { Search, ShoppingCart, User, Heart, Menu, Phone, MapPin, ChevronDown, Truck, Package } from "lucide-react";
+import { Search, ShoppingCart, User, Heart, Menu, Phone, ChevronDown } from "lucide-react";
+import { useState } from "react";
 import { categories } from "@/lib/mock-data";
 import logoAsset from "@/assets/techmarket-logo.svg.asset.json";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-40 bg-background shadow-sm">
-      {/* Top utility strip */}
-      <div className="hidden bg-brand text-white lg:block">
-        <div className="container-tm flex h-8 items-center justify-between text-[12px]">
-          <div className="flex items-center gap-5">
-            <a href="#" className="inline-flex items-center gap-1.5 hover:opacity-80"><MapPin className="h-3.5 w-3.5" /> Магазини</a>
-            <a href="#" className="inline-flex items-center gap-1.5 hover:opacity-80"><Truck className="h-3.5 w-3.5" /> Доставка</a>
-            <a href="#" className="inline-flex items-center gap-1.5 hover:opacity-80"><Package className="h-3.5 w-3.5" /> Проследи поръчка</a>
-            <a href="#" className="hover:opacity-80">Помощен център</a>
-          </div>
-          <div className="flex items-center gap-5">
-            <a href="#" className="hover:opacity-80">Бизнес клиенти</a>
-            <a href="#" className="hover:opacity-80">Промоции</a>
-            <span className="inline-flex items-center gap-1">BG · EUR <ChevronDown className="h-3 w-3" /></span>
-          </div>
-        </div>
-      </div>
-
       {/* Main bar */}
       <div className="border-b border-border">
         <div className="container-tm grid grid-cols-[auto_1fr_auto] items-center gap-4 py-4 md:gap-8">
@@ -76,9 +60,7 @@ export function Header() {
         {/* Category nav */}
         <div className="border-t border-border bg-surface">
           <div className="container-tm hidden h-12 items-center gap-1 text-sm md:flex">
-            <button className="inline-flex h-full items-center gap-2 bg-ink px-5 font-bold text-white">
-              <Menu className="h-4 w-4" /> ВСИЧКИ КАТЕГОРИИ
-            </button>
+            <AllCategoriesMenu />
             <div className="flex min-w-0 flex-1 items-center gap-0 overflow-x-auto">
               {categories.slice(0, 9).map((c) => (
                 <Link
@@ -98,6 +80,99 @@ export function Header() {
         </div>
       </div>
     </header>
+  );
+}
+
+// Fake subcategory data per category for the mega menu
+const subcatsFor = (slug: string): string[] => {
+  const map: Record<string, string[]> = {
+    laptopi: ["Ултрабуци", "Гейминг лаптопи", "Бизнес лаптопи", "Chromebook", "Аксесоари", "Раници и чанти"],
+    smartfoni: ["Apple iPhone", "Samsung Galaxy", "Xiaomi", "Google Pixel", "Кейсове", "Протектори"],
+    televizori: ["OLED", "QLED", "4K UHD", "Smart TV", "Стойки", "Проектори"],
+    audio: ["Слушалки", "True Wireless", "Тонколони", "Саундбарове", "Микрофони", "Аксесоари"],
+    foto: ["DSLR", "Безогледални", "Обективи", "Екшън камери", "Дронове", "Статив"],
+    gaming: ["Конзоли PS5", "Xbox", "Nintendo", "Гейминг столове", "Контролери", "Игри"],
+  };
+  return map[slug] ?? ["Разгледай всички", "Промоции", "Нови", "Топ продажби", "Аксесоари", "Марки"];
+};
+
+function AllCategoriesMenu() {
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(categories[0]?.slug ?? "");
+
+  return (
+    <div
+      className="relative h-full"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button className="inline-flex h-full items-center gap-2 rounded-t-lg bg-ink px-5 font-bold text-white">
+        <Menu className="h-4 w-4" /> ВСИЧКИ КАТЕГОРИИ
+        <ChevronDown className={`h-4 w-4 transition ${open ? "rotate-180" : ""}`} />
+      </button>
+
+      {open && (
+        <div className="absolute left-0 top-full z-50 w-[880px] max-w-[92vw] overflow-hidden rounded-b-xl rounded-tr-xl border border-border bg-background shadow-pop">
+          <div className="grid grid-cols-[280px_1fr]">
+            {/* Category list */}
+            <ul className="max-h-[520px] overflow-y-auto border-r border-border bg-surface py-2">
+              {categories.map((c) => {
+                const Icon = c.icon;
+                const isActive = c.slug === active;
+                return (
+                  <li key={c.slug}>
+                    <Link
+                      to="/category/$slug"
+                      params={{ slug: c.slug }}
+                      onMouseEnter={() => setActive(c.slug)}
+                      className={`flex items-center justify-between gap-3 px-4 py-2.5 text-[13px] font-semibold transition ${
+                        isActive
+                          ? "bg-background text-brand"
+                          : "text-ink hover:bg-background hover:text-brand"
+                      }`}
+                    >
+                      <span className="inline-flex items-center gap-3">
+                        <Icon className="h-4 w-4" strokeWidth={1.75} />
+                        {c.name}
+                      </span>
+                      <span className="text-[11px] text-muted-foreground">{c.count}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+
+            {/* Subcategory panel */}
+            <div className="p-6">
+              <div className="mb-4 flex items-baseline justify-between">
+                <h3 className="font-display text-lg font-bold text-ink">
+                  {categories.find((c) => c.slug === active)?.name}
+                </h3>
+                <Link
+                  to="/category/$slug"
+                  params={{ slug: active }}
+                  className="text-[12px] font-bold text-brand hover:underline"
+                >
+                  Виж всички →
+                </Link>
+              </div>
+              <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
+                {subcatsFor(active).map((s) => (
+                  <li key={s}>
+                    <a
+                      href="#"
+                      className="block rounded-md py-1.5 text-[13px] text-ink-soft transition hover:text-brand"
+                    >
+                      {s}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
