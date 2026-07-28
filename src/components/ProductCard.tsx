@@ -88,21 +88,26 @@ export function ProductCard({ product }: { product: Product }) {
             {product.price.toFixed(2)} лв.
           </div>
 
-          {/* Perks — single row, side-by-side */}
-          <div className="mt-3 flex items-center gap-2">
-            <span className="inline-flex flex-1 items-center justify-center gap-1 rounded-full bg-warning/10 px-1.5 py-1 text-[10px] font-semibold text-ink whitespace-nowrap">
-              <span className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-warning text-[8px] font-black text-white">
+          {/* Perks — stacked, multi-line */}
+          <div className="mt-3 flex flex-col gap-1.5">
+            <span className="inline-flex items-center gap-2 rounded-xl bg-warning/10 px-2.5 py-1.5 text-[11px] font-semibold text-ink leading-tight">
+              <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-warning text-[10px] font-black text-white">
                 0%
               </span>
-              <img src={tbiLogo.url} alt="TBI Bank" className="h-3 w-auto shrink-0 object-contain" />
-              <span>лизинг</span>
+              <span className="flex flex-col">
+                <img src={tbiLogo.url} alt="TBI Bank" className="h-3.5 w-auto shrink-0 object-contain" />
+                <span>лизинг</span>
+              </span>
             </span>
             {product.price >= 200 && (
-              <span className="inline-flex flex-1 items-center justify-center gap-1 rounded-full bg-success/10 px-1.5 py-1 text-[10px] font-semibold text-ink whitespace-nowrap">
-                <span className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-success text-white">
-                  <Truck className="h-2.5 w-2.5" strokeWidth={2.5} />
+              <span className="inline-flex items-center gap-2 rounded-xl bg-success/10 px-2.5 py-1.5 text-[11px] font-semibold text-ink leading-tight">
+                <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-success text-white">
+                  <Truck className="h-3.5 w-3.5" strokeWidth={2.5} />
                 </span>
-                <span>Безплатна доставка</span>
+                <span className="flex flex-col">
+                  <span>Безплатна</span>
+                  <span>доставка</span>
+                </span>
               </span>
             )}
           </div>
