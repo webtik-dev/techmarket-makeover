@@ -204,7 +204,7 @@ function ContactStep() {
         <Field label="Имейл" type="email" placeholder="ivan@example.com" />
         <Field label="Телефон" placeholder="+359 88 888 8888" />
         <div className="sm:col-span-2"><Field label="Град" placeholder="София" /></div>
-        <div className="sm:col-span-2"><Field label="Адрес" placeholder="ул. „Витоша" 15, ап. 4" /></div>
+        <div className="sm:col-span-2"><Field label="Адрес" placeholder="ул. „Витоша“ 15, ап. 4" /></div>
       </div>
     </Card>
   );

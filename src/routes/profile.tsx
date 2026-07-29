@@ -232,9 +232,9 @@ function Orders() {
 
 function Favorites() {
   const favs = [
-    { name: "MacBook Air M3 13" 8GB 256GB", price: 2199, hue: 260 },
+    { name: "MacBook Air M3 13″ 8GB 256GB", price: 2199, hue: 260 },
     { name: "Dyson V15 Detect Absolute", price: 1499, hue: 340 },
-    { name: "LG OLED evo C4 55"", price: 2799, hue: 200 },
+    { name: "LG OLED evo C4 55″", price: 2799, hue: 200 },
     { name: "Bose QuietComfort Ultra", price: 799, hue: 50 },
   ];
   return (
@@ -262,8 +262,8 @@ function Favorites() {
 
 function Addresses() {
   const addrs = [
-    { label: "Домашен", primary: true, name: "Иван Иванов", line: "ул. „Витоша" 15, ап. 4, София 1000" },
-    { label: "Офис", primary: false, name: "Иван Иванов", line: "бул. „Цариградско шосе" 111, София 1784" },
+    { label: "Домашен", primary: true, name: "Иван Иванов", line: "ул. „Витоша“ 15, ап. 4, София 1000" },
+    { label: "Офис", primary: false, name: "Иван Иванов", line: "бул. „Цариградско шосе“ 111, София 1784" },
   ];
   return (
     <Panel title="Адреси за доставка" action={
