@@ -19,14 +19,15 @@ export const Route = createFileRoute("/profile")({
 const BGN_PER_EUR = 1.95583;
 const fmtEUR = (n: number) => (n / BGN_PER_EUR).toLocaleString("bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-const tabs = [
+type Tab = { id: "overview" | "orders" | "favorites" | "addresses" | "payment" | "notifications"; label: string; icon: typeof User; badge?: number };
+const tabs: Tab[] = [
   { id: "overview", label: "Преглед", icon: User },
   { id: "orders", label: "Поръчки", icon: Package, badge: 3 },
   { id: "favorites", label: "Любими", icon: Heart, badge: 12 },
   { id: "addresses", label: "Адреси", icon: MapPin },
   { id: "payment", label: "Плащания", icon: CreditCard },
   { id: "notifications", label: "Известия", icon: Bell },
-] as const;
+];
 
 const orders = [
   { id: "TM-2026-0842", date: "24 юли 2026", status: "delivered", total: 2399, items: 1, hue: 220 },
