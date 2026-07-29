@@ -42,7 +42,7 @@ const statusMap = {
 } as const;
 
 function ProfilePage() {
-  const [tab, setTab] = useState<(typeof tabs)[number]["id"]>("overview");
+  const [tab, setTab] = useState<Tab["id"]>("overview");
 
   return (
     <>
@@ -153,7 +153,7 @@ function StatCard({ label, value, sub }: { label: string; value: string; sub?: s
   );
 }
 
-function Overview({ onGoto }: { onGoto: (id: (typeof tabs)[number]["id"]) => void }) {
+function Overview({ onGoto }: { onGoto: (id: Tab["id"]) => void }) {
   return (
     <>
       <div className="grid gap-4 sm:grid-cols-3">
