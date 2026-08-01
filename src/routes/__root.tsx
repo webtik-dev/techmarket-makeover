@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { MobileTabBar } from "@/components/MobileTabBar";
+
 
 function NotFoundComponent() {
   return (
@@ -121,6 +123,9 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <div aria-hidden className="h-[68px] md:hidden" />
+      <MobileTabBar />
     </QueryClientProvider>
   );
 }
+
