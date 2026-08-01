@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Search, ShoppingCart, User, Heart, ChevronDown, ChevronLeft, ChevronRight, GitCompareArrows, X, Trash2, Menu as MenuIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+
 import { categories } from "@/lib/mock-data";
 import logoAsset from "@/assets/techmarket-logo.svg.asset.json";
 import faviAsset from "@/assets/favi.svg.asset.json";
