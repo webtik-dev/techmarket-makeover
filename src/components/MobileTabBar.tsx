@@ -4,11 +4,11 @@ import faviAsset from "@/assets/favi.svg.asset.json";
 
 const items = [
   { to: "/", label: "Начало", icon: null as null | typeof Heart },
-  { to: "/profile", label: "Любими", icon: Heart, badge: 3 },
-  { to: "/profile", label: "Сравни", icon: GitCompareArrows, badge: 2 },
+  { to: "/favorites", label: "Любими", icon: Heart, badge: 3 },
+  { to: "/compare", label: "Сравни", icon: GitCompareArrows, badge: 2 },
   { to: "/profile", label: "Профил", icon: User },
   { to: "/cart", label: "Количка", icon: ShoppingCart, badge: 2 },
-];
+] as const;
 
 export function MobileTabBar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -20,9 +20,9 @@ export function MobileTabBar() {
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <ul className="grid grid-cols-5">
-        {items.map((it, i) => {
+        {items.map((it) => {
           const Icon = it.icon;
-          const active = pathname === it.to && (i === 0 || pathname !== "/");
+          const active = pathname === it.to;
           return (
             <li key={it.label}>
               <Link
@@ -37,7 +37,7 @@ export function MobileTabBar() {
                   ) : (
                     <img src={faviAsset.url} alt="" aria-hidden className="h-6 w-6" />
                   )}
-                  {it.badge !== undefined && (
+                  {"badge" in it && it.badge !== undefined && (
                     <span className="absolute -right-2 -top-1 grid h-4 min-w-4 place-items-center rounded-full bg-brand px-1 text-[9px] font-bold text-white">
                       {it.badge}
                     </span>
