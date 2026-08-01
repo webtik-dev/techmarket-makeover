@@ -68,9 +68,9 @@ export function Header() {
         {/* Actions */}
         <div className="ml-auto flex items-center gap-0.5 md:ml-0 md:gap-1">
           <div className="hidden md:flex md:items-center md:gap-1">
-            <IconAction icon={User} label="Профил" />
-            <IconAction icon={Heart} label="Любими" badge={3} />
-            <IconAction icon={GitCompareArrows} label="Сравни" badge={2} />
+            <IconAction icon={User} label="Профил" to="/profile" />
+            <IconAction icon={Heart} label="Любими" badge={3} to="/favorites" />
+            <IconAction icon={GitCompareArrows} label="Сравни" badge={2} to="/compare" />
           </div>
           <CartButton count={cartCount} items={mockCart} />
         </div>
@@ -260,9 +260,9 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
               </ul>
 
               <div className="mt-2 space-y-1 border-t border-white/15 px-2 py-3">
-                <MobileQuickLink icon={User} label="Профил" />
-                <MobileQuickLink icon={Heart} label="Любими" badge={3} />
-                <MobileQuickLink icon={GitCompareArrows} label="Сравни" badge={2} />
+                <MobileQuickLink icon={User} label="Профил" to="/profile" onClick={onClose} />
+                <MobileQuickLink icon={Heart} label="Любими" badge={3} to="/favorites" onClick={onClose} />
+                <MobileQuickLink icon={GitCompareArrows} label="Сравни" badge={2} to="/compare" onClick={onClose} />
               </div>
             </nav>
 
@@ -317,10 +317,11 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
 }
 
 
-function MobileQuickLink({ icon: Icon, label, badge }: { icon: typeof X; label: string; badge?: number }) {
+function MobileQuickLink({ icon: Icon, label, badge, to, onClick }: { icon: typeof X; label: string; badge?: number; to: string; onClick?: () => void }) {
   return (
-    <button
-      type="button"
+    <Link
+      to={to}
+      onClick={onClick}
       className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-white/85 transition hover:bg-brand-dark hover:text-white"
     >
       <Icon className="h-4 w-4 opacity-80" strokeWidth={1.75} />
@@ -331,7 +332,7 @@ function MobileQuickLink({ icon: Icon, label, badge }: { icon: typeof X; label: 
 
         </span>
       )}
-    </button>
+    </Link>
   );
 }
 
@@ -345,8 +346,8 @@ function CartButton({ count, items }: { count: number; items: typeof mockCart })
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button
-        type="button"
+      <Link
+        to="/cart"
         aria-label="Количка"
         className="relative grid h-10 w-10 place-items-center rounded-full text-ink transition hover:text-brand"
       >
@@ -356,7 +357,7 @@ function CartButton({ count, items }: { count: number; items: typeof mockCart })
             {count}
           </span>
         )}
-      </button>
+      </Link>
 
       {open && (
         <div className="absolute right-0 top-full z-50 hidden w-[360px] pt-3 md:block">
@@ -365,7 +366,7 @@ function CartButton({ count, items }: { count: number; items: typeof mockCart })
               <div className="text-[13px] font-semibold text-ink">
                 Количка <span className="text-muted-foreground">({count})</span>
               </div>
-              <Link to="/" className="text-[12px] font-semibold text-brand hover:underline">
+              <Link to="/cart" className="text-[12px] font-semibold text-brand hover:underline">
                 Виж всички →
               </Link>
             </div>
@@ -407,7 +408,7 @@ function CartButton({ count, items }: { count: number; items: typeof mockCart })
                       <div className="text-[11px] text-muted-foreground">{subtotal.toFixed(2)} лв.</div>
                     </div>
                   </div>
-                  <Link to="/" className="inline-flex h-10 w-full items-center justify-center rounded-full bg-brand px-4 text-[13px] font-bold text-white transition hover:bg-brand-dark">
+                  <Link to="/checkout" className="inline-flex h-10 w-full items-center justify-center rounded-full bg-brand px-4 text-[13px] font-bold text-white transition hover:bg-brand-dark">
                     Към количката
                   </Link>
                 </div>
@@ -424,14 +425,16 @@ function IconAction({
   icon: Icon,
   label,
   badge,
+  to,
 }: {
   icon: typeof X;
   label: string;
   badge?: number;
+  to: string;
 }) {
   return (
-    <button
-      type="button"
+    <Link
+      to={to}
       aria-label={label}
       className="relative grid h-10 w-10 place-items-center rounded-full text-ink transition hover:text-brand"
     >
@@ -441,6 +444,6 @@ function IconAction({
           {badge}
         </span>
       )}
-    </button>
+    </Link>
   );
 }

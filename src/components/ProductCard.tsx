@@ -122,35 +122,46 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
 
           {/* Primary CTA */}
-          <button
-            type="button"
-            disabled={product.stock === "out"}
-            className="mt-2 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-brand px-4 text-[13px] font-bold text-white shadow-brand transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-muted-foreground disabled:shadow-none"
-          >
-            <ShoppingCart className="h-4 w-4" strokeWidth={2.2} />
-            Купи
-          </button>
+          {product.stock === "out" ? (
+            <button
+              type="button"
+              disabled
+              className="mt-2 inline-flex h-11 w-full cursor-not-allowed items-center justify-center gap-2 rounded-full bg-surface-2 px-4 text-[13px] font-bold text-muted-foreground"
+            >
+              <ShoppingCart className="h-4 w-4" strokeWidth={2.2} />
+              Изчерпан
+            </button>
+          ) : (
+            <Link
+              to="/cart"
+              className="mt-2 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-brand px-4 text-[13px] font-bold text-white shadow-brand transition hover:bg-brand-dark"
+            >
+              <ShoppingCart className="h-4 w-4" strokeWidth={2.2} />
+              Купи
+            </Link>
+          )}
 
 
           {/* Secondary actions */}
           <div className="mt-2 grid grid-cols-2 gap-2">
-            <button
-              type="button"
+            <Link
+              to="/favorites"
               aria-label="Добави в любими"
               className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full bg-surface text-[12px] font-semibold text-ink-soft transition hover:bg-brand/10 hover:text-brand"
             >
               <Heart className="h-3.5 w-3.5" strokeWidth={2} />
               Любими
-            </button>
-            <button
-              type="button"
+            </Link>
+            <Link
+              to="/compare"
               aria-label="Сравни"
               className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full bg-surface text-[12px] font-semibold text-ink-soft transition hover:bg-brand/10 hover:text-brand"
             >
               <GitCompareArrows className="h-3.5 w-3.5" strokeWidth={2} />
               Сравни
-            </button>
+            </Link>
           </div>
+
         </div>
     </article>
 
