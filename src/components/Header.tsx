@@ -321,13 +321,14 @@ function MobileQuickLink({ icon: Icon, label, badge }: { icon: typeof X; label: 
   return (
     <button
       type="button"
-      className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-ink hover:bg-surface"
+      className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-white/85 transition hover:bg-brand-dark hover:text-white"
     >
-      <Icon className="h-4 w-4 text-muted-foreground" strokeWidth={1.75} />
+      <Icon className="h-4 w-4 opacity-80" strokeWidth={1.75} />
       <span className="flex-1">{label}</span>
       {badge !== undefined && (
-        <span className="grid h-5 min-w-5 place-items-center rounded-full bg-brand px-1.5 text-[10px] font-bold text-white">
+        <span className="grid h-5 min-w-5 place-items-center rounded-full bg-white/20 px-1.5 text-[10px] font-bold text-white">
           {badge}
+
         </span>
       )}
     </button>
