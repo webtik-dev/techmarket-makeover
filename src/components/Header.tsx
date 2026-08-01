@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Search, ShoppingCart, User, Heart, ChevronDown, ChevronLeft, ChevronRight, GitCompareArrows, X, Trash2, Menu as MenuIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+
 import { categories } from "@/lib/mock-data";
 import logoAsset from "@/assets/techmarket-logo.svg.asset.json";
 import faviAsset from "@/assets/favi.svg.asset.json";
@@ -183,6 +185,9 @@ function MenuDropdown() {
 
 function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -195,9 +200,11 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
 
   const activeCat = categories.find((c) => c.slug === activeSlug);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <div
-      className={`fixed inset-0 z-50 md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}
+      className={`fixed inset-0 z-[60] md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}
       aria-hidden={!open}
     >
       {/* Backdrop */}
@@ -208,12 +215,12 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
 
       {/* Panel */}
       <aside
-        className={`absolute inset-y-0 left-0 w-[88%] max-w-sm overflow-hidden bg-background shadow-pop transition-transform duration-300 ${
+        className={`absolute inset-y-0 left-0 flex w-[88%] max-w-sm flex-col overflow-hidden bg-background shadow-pop transition-transform duration-300 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Header bar */}
-        <div className="flex h-14 items-center justify-between border-b border-border bg-brand px-4 text-white">
+        <div className="flex h-14 shrink-0 items-center justify-between bg-brand px-4 text-white">
           <span className="font-display text-base font-bold italic">Меню</span>
           <button
             type="button"
@@ -226,14 +233,14 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
         </div>
 
         {/* Sliding pane container */}
-        <div className="relative h-[calc(100%-3.5rem)] overflow-hidden">
+        <div className="relative min-h-0 flex-1 overflow-hidden">
           <div
             className="flex h-full w-[200%] transition-transform duration-300 ease-out"
             style={{ transform: activeSlug ? "translateX(-50%)" : "translateX(0)" }}
           >
-            {/* Level 1: categories */}
-            <nav className="h-full w-1/2 overflow-y-auto">
-              <ul className="divide-y divide-border">
+            {/* Level 1: categories — desktop mega-menu styling */}
+            <nav className="h-full w-1/2 overflow-y-auto bg-brand">
+              <ul className="py-2">
                 {categories.map((c) => {
                   const Icon = c.icon;
                   return (
@@ -241,20 +248,18 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
                       <button
                         type="button"
                         onClick={() => setActiveSlug(c.slug)}
-                        className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-[14px] font-medium text-ink transition hover:bg-surface"
+                        className="flex w-full items-center gap-3 px-5 py-3 text-left text-[13px] text-white/85 transition hover:bg-brand-dark hover:text-white"
                       >
-                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-surface text-brand">
-                          <Icon className="h-4 w-4" strokeWidth={1.75} />
-                        </span>
+                        <Icon className="h-4 w-4 shrink-0" strokeWidth={1.75} />
                         <span className="min-w-0 flex-1 truncate">{c.name}</span>
-                        <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+                        <ChevronRight className="h-4 w-4 shrink-0 opacity-70" />
                       </button>
                     </li>
                   );
                 })}
               </ul>
 
-              <div className="mt-4 space-y-1 border-t border-border px-2 py-3">
+              <div className="mt-2 space-y-1 border-t border-white/15 px-2 py-3">
                 <MobileQuickLink icon={User} label="Профил" />
                 <MobileQuickLink icon={Heart} label="Любими" badge={3} />
                 <MobileQuickLink icon={GitCompareArrows} label="Сравни" badge={2} />
@@ -262,7 +267,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
             </nav>
 
             {/* Level 2: subcategories */}
-            <div className="h-full w-1/2 overflow-y-auto bg-background">
+            <div className="relative h-full w-1/2 overflow-y-auto bg-background">
               <button
                 type="button"
                 onClick={() => setActiveSlug(null)}
@@ -273,50 +278,57 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
               </button>
 
               {activeCat && (
-                <div className="px-5 pb-8 pt-4">
-                  <Link
-                    to="/category/$slug"
-                    params={{ slug: activeCat.slug }}
-                    onClick={onClose}
-                    className="block font-display text-lg font-bold text-ink"
-                  >
-                    {activeCat.name}
-                  </Link>
-                  <ul className="mt-4 space-y-1">
-                    {subcatsFor(activeCat.slug).map((s) => (
-                      <li key={s}>
-                        <a
-                          href="#"
-                          onClick={onClose}
-                          className="flex items-center justify-between rounded-lg px-3 py-2.5 text-[14px] text-ink transition hover:bg-surface hover:text-brand"
-                        >
-                          <span>{s}</span>
-                          <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="relative px-6 pb-10 pt-5">
+                  <img
+                    src={faviAsset.url}
+                    alt=""
+                    aria-hidden
+                    className="pointer-events-none absolute bottom-4 right-4 h-24 w-24 opacity-[0.06]"
+                  />
+                  <div className="relative z-10">
+                    <Link
+                      to="/category/$slug"
+                      params={{ slug: activeCat.slug }}
+                      onClick={onClose}
+                      className="mb-4 block font-display text-[20px] font-semibold text-ink transition hover:text-brand"
+                    >
+                      {activeCat.name}
+                    </Link>
+                    <ul className="space-y-2.5">
+                      {subcatsFor(activeCat.slug).map((s) => (
+                        <li key={s} className="flex items-start gap-2 text-[13px] text-ink-soft">
+                          <span aria-hidden className="mt-[7px] inline-block h-1 w-1 shrink-0 rounded-full bg-ink-soft" />
+                          <a href="#" onClick={onClose} className="transition hover:text-brand">
+                            {s}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               )}
             </div>
           </div>
         </div>
       </aside>
-    </div>
+    </div>,
+    document.body,
   );
 }
+
 
 function MobileQuickLink({ icon: Icon, label, badge }: { icon: typeof X; label: string; badge?: number }) {
   return (
     <button
       type="button"
-      className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-ink hover:bg-surface"
+      className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-white/85 transition hover:bg-brand-dark hover:text-white"
     >
-      <Icon className="h-4 w-4 text-muted-foreground" strokeWidth={1.75} />
+      <Icon className="h-4 w-4 opacity-80" strokeWidth={1.75} />
       <span className="flex-1">{label}</span>
       {badge !== undefined && (
-        <span className="grid h-5 min-w-5 place-items-center rounded-full bg-brand px-1.5 text-[10px] font-bold text-white">
+        <span className="grid h-5 min-w-5 place-items-center rounded-full bg-white/20 px-1.5 text-[10px] font-bold text-white">
           {badge}
+
         </span>
       )}
     </button>
