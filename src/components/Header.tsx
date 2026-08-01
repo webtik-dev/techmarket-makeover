@@ -425,6 +425,7 @@ function IconAction({
   icon: Icon,
   label,
   badge,
+  to,
 }: {
   icon: typeof X;
   label: string;
@@ -443,6 +444,6 @@ function IconAction({
           {badge}
         </span>
       )}
-    </button>
+    </Link>
   );
 }
