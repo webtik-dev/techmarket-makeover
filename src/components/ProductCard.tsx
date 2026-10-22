@@ -18,7 +18,7 @@ function formatEUR(n: number) {
   return n.toLocaleString("bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product, campaign }: { product: Product; campaign?: boolean }) {
   const discount = product.oldPrice
     ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
     : 0;
@@ -45,6 +45,12 @@ export function ProductCard({ product }: { product: Product }) {
         {product.badges.includes("new") && discount === 0 && (
           <span className="absolute left-2 top-2 inline-flex items-center rounded-full bg-ink px-2 py-0.5 text-[10px] font-semibold leading-none text-white sm:left-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[11px]">
             Ново
+          </span>
+        )}
+        {campaign && (
+          <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-ink px-2 py-0.5 text-[9px] font-black uppercase leading-none tracking-[0.12em] text-background sm:right-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[10px]">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+            Black Month
           </span>
         )}
       </Link>
