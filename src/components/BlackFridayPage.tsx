@@ -146,62 +146,36 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
     <>
       <Header />
       <main className="bg-surface pb-16">
-        {/* Hero */}
+        {/* Hero — minimal */}
         <section className="relative overflow-hidden bg-ink">
-          <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand/40 blur-3xl" />
-          <div className="container-tm relative py-10 md:py-16">
-            <nav aria-label="breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-background/60">
-              <Link to="/" className="hover:text-background">Начало</Link>
-              <ChevronRight className="h-3 w-3" />
-              {section.slug ? (
-                <>
-                  <Link to="/black-friday" className="hover:text-background">Black Friday</Link>
-                  <ChevronRight className="h-3 w-3" />
-                  <span className="text-background">{section.name}</span>
-                </>
-              ) : <span className="text-background">Black Friday</span>}
-            </nav>
-            <div className="grid items-end gap-8 md:grid-cols-[1fr_auto]">
-              <div>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-brand px-3 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-brand-foreground">
-                  <Zap className="h-3.5 w-3.5" /> Black Month 2026 · до −50%
-                </span>
-                <h1 className="mt-4 font-display text-4xl font-black uppercase leading-[1.05] tracking-tight text-background md:text-6xl">
-                  {section.h1}
-                </h1>
-                <p className="mt-3 max-w-xl text-base text-background/70 md:text-lg">{section.intro}</p>
-                <a href="#offers" className="mt-6 inline-flex h-12 items-center rounded-full bg-brand px-7 text-sm font-bold uppercase tracking-wide text-brand-foreground shadow-brand transition hover:bg-brand-dark">
-                  Виж офертите
-                </a>
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.07]"
+            style={{ backgroundImage: "linear-gradient(var(--background) 1px, transparent 1px), linear-gradient(90deg, var(--background) 1px, transparent 1px)", backgroundSize: "32px 32px" }}
+          />
+          <div className="container-tm relative flex flex-col gap-5 py-7 md:flex-row md:items-center md:justify-between md:py-9">
+            <div>
+              <nav aria-label="breadcrumb" className="mb-3 flex items-center gap-1.5 text-[11px] text-background/50">
+                <Link to="/" className="hover:text-background">Начало</Link>
+                <ChevronRight className="h-3 w-3" />
+                {section.slug ? (
+                  <>
+                    <Link to="/black-friday" className="hover:text-background">Black Friday</Link>
+                    <ChevronRight className="h-3 w-3" />
+                    <span className="text-background/80">{section.name}</span>
+                  </>
+                ) : <span className="text-background/80">Black Friday</span>}
+              </nav>
+              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-brand">
+                <Zap className="h-3 w-3" /> Black Month 2026
               </div>
-              <Countdown />
+              <h1 className="mt-1.5 font-display text-2xl font-black uppercase tracking-tight text-background md:text-4xl">
+                {section.h1}
+              </h1>
+              <p className="mt-1.5 text-sm text-background/60">{section.intro}</p>
             </div>
+            <Countdown />
           </div>
         </section>
-
-        {/* Category nav */}
-        <nav aria-label="Black Friday категории" className="sticky top-16 z-20 border-b border-border bg-background/90 backdrop-blur-md">
-          <div className="container-tm flex gap-2 overflow-x-auto py-3">
-            {sections.map((s) => {
-              const Icon = icons[s.slug];
-              const active = s.slug === section.slug;
-              const cls = `inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition ${active ? "bg-ink text-background" : "bg-surface text-ink hover:bg-surface-2"}`;
-              return s.slug ? (
-                <Link key={s.slug} to="/black-friday/$section" params={{ section: s.slug }} className={cls}>
-                  <Icon className="h-4 w-4" /> {s.name}
-                </Link>
-              ) : (
-                <Link key="all" to="/black-friday" className={cls}><Icon className="h-4 w-4" /> {s.name}</Link>
-              );
-            })}
-          </div>
-        </nav>
-
-        <div className="bg-background">
-          <Rail title="Топ оферти" items={top} />
-          <Rail title="Най-големи намаления" items={biggest} />
-          <Rail title="Последни бройки" items={last} />
-        </div>
 
         {/* Listing */}
         <section id="offers" className="container-tm mt-8 grid scroll-mt-32 gap-6 lg:grid-cols-[260px_1fr]">
