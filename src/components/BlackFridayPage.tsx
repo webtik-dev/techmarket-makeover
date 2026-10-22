@@ -178,6 +178,24 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
         </section>
 
         {/* Listing */}
+
+        <nav aria-label="Black Friday категории" className="sticky top-16 z-20 border-b border-border bg-background/90 backdrop-blur-md">
+          <div className="container-tm flex gap-2 overflow-x-auto py-3">
+            {sections.map((s) => {
+              const Icon = icons[s.slug];
+              const active = s.slug === section.slug;
+              const cls = `inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition ${active ? "bg-ink text-background" : "bg-surface text-ink hover:bg-surface-2"}`;
+              return s.slug ? (
+                <Link key={s.slug} to="/black-friday/$section" params={{ section: s.slug }} className={cls}>
+                  <Icon className="h-4 w-4" /> {s.name}
+                </Link>
+              ) : (
+                <Link key="all" to="/black-friday" className={cls}><Icon className="h-4 w-4" /> {s.name}</Link>
+              );
+            })}
+          </div>
+        </nav>
+
         <section id="offers" className="container-tm mt-6 grid scroll-mt-32 gap-6 lg:grid-cols-[260px_1fr]">
           <aside className="hidden lg:block">
             <div className="sticky top-36 rounded-xl bg-card p-5 shadow-card">{filters}</div>
