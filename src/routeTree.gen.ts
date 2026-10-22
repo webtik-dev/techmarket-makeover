@@ -15,8 +15,10 @@ import { Route as CompareRouteImport } from './routes/compare'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlackFridayIndexRouteImport } from './routes/black-friday.index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
+import { Route as BlackFridaySectionRouteImport } from './routes/black-friday.$section'
 
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
@@ -48,6 +50,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlackFridayIndexRoute = BlackFridayIndexRouteImport.update({
+  id: '/black-friday/',
+  path: '/black-friday/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductSlugRoute = ProductSlugRouteImport.update({
   id: '/product/$slug',
   path: '/product/$slug',
@@ -58,6 +65,11 @@ const CategorySlugRoute = CategorySlugRouteImport.update({
   path: '/category/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlackFridaySectionRoute = BlackFridaySectionRouteImport.update({
+  id: '/black-friday/$section',
+  path: '/black-friday/$section',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -66,8 +78,10 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/favorites': typeof FavoritesRoute
   '/profile': typeof ProfileRoute
+  '/black-friday/$section': typeof BlackFridaySectionRoute
   '/category/$slug': typeof CategorySlugRoute
   '/product/$slug': typeof ProductSlugRoute
+  '/black-friday/': typeof BlackFridayIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -76,8 +90,10 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/favorites': typeof FavoritesRoute
   '/profile': typeof ProfileRoute
+  '/black-friday/$section': typeof BlackFridaySectionRoute
   '/category/$slug': typeof CategorySlugRoute
   '/product/$slug': typeof ProductSlugRoute
+  '/black-friday': typeof BlackFridayIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -87,8 +103,10 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/favorites': typeof FavoritesRoute
   '/profile': typeof ProfileRoute
+  '/black-friday/$section': typeof BlackFridaySectionRoute
   '/category/$slug': typeof CategorySlugRoute
   '/product/$slug': typeof ProductSlugRoute
+  '/black-friday/': typeof BlackFridayIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -99,8 +117,10 @@ export interface FileRouteTypes {
     | '/compare'
     | '/favorites'
     | '/profile'
+    | '/black-friday/$section'
     | '/category/$slug'
     | '/product/$slug'
+    | '/black-friday/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -109,8 +129,10 @@ export interface FileRouteTypes {
     | '/compare'
     | '/favorites'
     | '/profile'
+    | '/black-friday/$section'
     | '/category/$slug'
     | '/product/$slug'
+    | '/black-friday'
   id:
     | '__root__'
     | '/'
@@ -119,8 +141,10 @@ export interface FileRouteTypes {
     | '/compare'
     | '/favorites'
     | '/profile'
+    | '/black-friday/$section'
     | '/category/$slug'
     | '/product/$slug'
+    | '/black-friday/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -130,8 +154,10 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   FavoritesRoute: typeof FavoritesRoute
   ProfileRoute: typeof ProfileRoute
+  BlackFridaySectionRoute: typeof BlackFridaySectionRoute
   CategorySlugRoute: typeof CategorySlugRoute
   ProductSlugRoute: typeof ProductSlugRoute
+  BlackFridayIndexRoute: typeof BlackFridayIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -178,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/black-friday/': {
+      id: '/black-friday/'
+      path: '/black-friday'
+      fullPath: '/black-friday/'
+      preLoaderRoute: typeof BlackFridayIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/product/$slug': {
       id: '/product/$slug'
       path: '/product/$slug'
@@ -192,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategorySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/black-friday/$section': {
+      id: '/black-friday/$section'
+      path: '/black-friday/$section'
+      fullPath: '/black-friday/$section'
+      preLoaderRoute: typeof BlackFridaySectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -202,8 +242,10 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   FavoritesRoute: FavoritesRoute,
   ProfileRoute: ProfileRoute,
+  BlackFridaySectionRoute: BlackFridaySectionRoute,
   CategorySlugRoute: CategorySlugRoute,
   ProductSlugRoute: ProductSlugRoute,
+  BlackFridayIndexRoute: BlackFridayIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

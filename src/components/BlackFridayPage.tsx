@@ -327,8 +327,8 @@ function FilterGroup({ title, children }: { title: string; children: React.React
 function Check({ label, checked, onChange, radio }: { label: string; checked: boolean; onChange: () => void; radio?: boolean }) {
   return (
     <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink-soft hover:text-ink">
-      <input type={radio ? "radio" : "checkbox"} checked={checked} onChange={onChange} onClick={radio ? onChange : undefined}
-        className="h-4 w-4 accent-[var(--brand)]" readOnly={radio} />
+      <input type={radio ? "radio" : "checkbox"} checked={checked} onChange={onChange}
+        className="h-4 w-4 accent-[var(--brand)]" />
       {label}
     </label>
   );
