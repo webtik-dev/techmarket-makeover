@@ -28,7 +28,7 @@ function Countdown() {
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, []);
-  if (!CAMPAIGN_END || now === null) return <div className="h-[60px]" />;
+  if (!CAMPAIGN_END || now === null) return <div className="h-[52px]" />;
   const diff = new Date(CAMPAIGN_END).getTime() - now;
   if (diff <= 0) return null;
   const parts = [
@@ -40,8 +40,8 @@ function Countdown() {
   return (
     <div className="flex gap-2" aria-label="Оставащо време до края на кампанията">
       {parts.map(([v, l]) => (
-        <div key={l} className="min-w-[60px] rounded-xl bg-background/10 px-3 py-2 text-center backdrop-blur">
-          <div className="font-display text-2xl font-black tabular-nums text-background">{String(v).padStart(2, "0")}</div>
+        <div key={l} className="min-w-[52px] rounded-lg border border-background/10 bg-background/5 px-2.5 py-1.5 text-center backdrop-blur">
+          <div className="font-display text-xl font-bold tabular-nums text-background">{String(v).padStart(2, "0")}</div>
           <div className="text-[10px] uppercase tracking-widest text-background/60">{l}</div>
         </div>
       ))}
@@ -178,7 +178,7 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
         </section>
 
         {/* Listing */}
-        <section id="offers" className="container-tm mt-8 grid scroll-mt-32 gap-6 lg:grid-cols-[260px_1fr]">
+        <section id="offers" className="container-tm mt-6 grid scroll-mt-32 gap-6 lg:grid-cols-[260px_1fr]">
           <aside className="hidden lg:block">
             <div className="sticky top-36 rounded-xl bg-card p-5 shadow-card">{filters}</div>
           </aside>
@@ -226,6 +226,12 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
             )}
           </div>
         </section>
+
+        <div className="mt-12 bg-background">
+          <Rail title="Топ оферти" items={top} />
+          <Rail title="Най-големи намаления" items={biggest} />
+          <Rail title="Последни бройки" items={last} />
+        </div>
 
         {/* SEO + FAQ + links */}
         <section className="container-tm mt-14 grid gap-6 lg:grid-cols-2">
