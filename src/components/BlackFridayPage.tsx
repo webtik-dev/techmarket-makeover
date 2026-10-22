@@ -57,7 +57,7 @@ function Rail({ title, items }: { title: string; items: typeof bfProducts }) {
       <div className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 lg:grid-cols-5">
         {items.map((p) => (
           <div key={p.id} className="w-[46%] shrink-0 snap-start md:w-auto">
-            <ProductCard product={p} />
+            <ProductCard product={p} campaign />
           </div>
         ))}
       </div>
@@ -233,7 +233,7 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
 
             {visible.length ? (
               <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 xl:grid-cols-4">
-                {visible.map((p) => <ProductCard key={p.id} product={p} />)}
+                {visible.map((p) => <ProductCard key={p.id} product={p} campaign />)}
               </div>
             ) : (
               <div className="rounded-xl bg-card p-10 text-center text-muted-foreground">Няма оферти по избраните филтри.</div>
