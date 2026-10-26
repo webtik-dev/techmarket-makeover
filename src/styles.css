@@ -128,3 +128,20 @@
   max-width: 1400px;
   @media (min-width: 768px) { padding-inline: 1.5rem; }
 }
+
+/* Black Friday dark scope */
+.theme-bf {
+  --background: oklch(0.12 0 0);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.17 0 0);
+  --card-foreground: oklch(0.98 0 0);
+  --ink: oklch(0.98 0 0);
+  --ink-soft: oklch(0.72 0 0);
+  --surface: oklch(0.15 0 0);
+  --surface-2: oklch(0.23 0 0);
+  --border: oklch(0.27 0 0);
+  --muted-foreground: oklch(0.62 0 0);
+  --brand: oklch(0.56 0.21 25);
+  background-color: var(--background);
+  color: var(--foreground);
+}
