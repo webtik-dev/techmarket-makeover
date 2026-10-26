@@ -1,9 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { ChevronRight, ChevronDown, SlidersHorizontal, X, Zap, Wrench, Laptop, Dumbbell, Bike, LayoutGrid } from "lucide-react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { ProductCard } from "@/components/ProductCard";
+import { ArrowLeft, ChevronDown, SlidersHorizontal, X, Zap, Wrench, Laptop, Dumbbell, Bike, LayoutGrid } from "lucide-react";
+import { BFProductCard as ProductCard } from "@/components/BFProductCard";
 import {
   type BFSection, type SortKey, CAMPAIGN_END, bfProducts, categorySections, discountOf, sections, sortProducts,
 } from "@/lib/black-friday";
@@ -40,9 +38,9 @@ function Countdown() {
   return (
     <div className="flex gap-2" aria-label="Оставащо време до края на кампанията">
       {parts.map(([v, l]) => (
-        <div key={l} className="min-w-[52px] rounded-lg border border-background/10 bg-background/5 px-2.5 py-1.5 text-center backdrop-blur">
-          <div className="font-display text-xl font-bold tabular-nums text-background">{String(v).padStart(2, "0")}</div>
-          <div className="text-[10px] uppercase tracking-widest text-background/60">{l}</div>
+        <div key={l} className="min-w-[52px] rounded-lg border border-border bg-card px-2.5 py-1.5 text-center backdrop-blur">
+          <div className="font-display text-xl font-bold tabular-nums text-ink">{String(v).padStart(2, "0")}</div>
+          <div className="text-[10px] uppercase tracking-widest text-ink-soft">{l}</div>
         </div>
       ))}
     </div>
@@ -144,47 +142,33 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
 
   return (
     <>
-      <Header />
-      <main className="bg-surface pb-16">
-        {/* Hero — minimal */}
-        <section className="relative overflow-hidden bg-ink">
+      <main className="theme-bf min-h-screen pb-16">
+        <section className="relative overflow-hidden border-b border-border">
           <div
-            className="pointer-events-none absolute inset-0 opacity-[0.07]"
-            style={{ backgroundImage: "linear-gradient(var(--background) 1px, transparent 1px), linear-gradient(90deg, var(--background) 1px, transparent 1px)", backgroundSize: "32px 32px" }}
+            className="pointer-events-none absolute inset-0 opacity-[0.06]"
+            style={{ backgroundImage: "linear-gradient(var(--ink) 1px, transparent 1px), linear-gradient(90deg, var(--ink) 1px, transparent 1px)", backgroundSize: "32px 32px" }}
           />
-          <div className="container-tm relative flex flex-col gap-5 py-7 md:flex-row md:items-center md:justify-between md:py-9">
-            <div>
-              <nav aria-label="breadcrumb" className="mb-3 flex items-center gap-1.5 text-[11px] text-background/50">
-                <Link to="/" className="hover:text-background">Начало</Link>
-                <ChevronRight className="h-3 w-3" />
-                {section.slug ? (
-                  <>
-                    <Link to="/black-friday" className="hover:text-background">Black Friday</Link>
-                    <ChevronRight className="h-3 w-3" />
-                    <span className="text-background/80">{section.name}</span>
-                  </>
-                ) : <span className="text-background/80">Black Friday</span>}
-              </nav>
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-brand">
-                <Zap className="h-3 w-3" /> Black Month 2026
-              </div>
-              <h1 className="mt-1.5 font-display text-2xl font-black uppercase tracking-tight text-background md:text-4xl">
-                {section.h1}
-              </h1>
-              <p className="mt-1.5 text-sm text-background/60">{section.intro}</p>
+          <Link to="/" className="absolute left-4 top-4 z-10 inline-flex h-10 items-center gap-2 rounded-full bg-brand px-4 text-sm font-bold text-brand-foreground transition hover:opacity-90 md:left-6">
+            <ArrowLeft className="h-4 w-4" /> Начало
+          </Link>
+          <div className="container-tm relative flex flex-col items-center gap-4 pb-8 pt-20 text-center md:pt-12">
+            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-brand">
+              <Zap className="h-3 w-3" /> Black Month 2026
             </div>
+            <h1 className="font-display text-3xl font-black uppercase tracking-tight text-ink md:text-5xl">{section.h1}</h1>
+            <p className="max-w-xl text-sm text-ink-soft">{section.intro}</p>
             <Countdown />
           </div>
         </section>
 
         {/* Listing */}
 
-        <nav aria-label="Black Friday категории" className="sticky top-16 z-20 border-b border-border bg-background/90 backdrop-blur-md">
-          <div className="container-tm flex gap-2 overflow-x-auto py-3">
+        <nav aria-label="Black Friday категории" className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur-md">
+          <div className="container-tm flex gap-2 overflow-x-auto py-3 md:justify-center">
             {sections.map((s) => {
               const Icon = icons[s.slug];
               const active = s.slug === section.slug;
-              const cls = `inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition ${active ? "bg-ink text-background" : "bg-surface text-ink hover:bg-surface-2"}`;
+              const cls = `inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition ${active ? "bg-brand text-brand-foreground" : "bg-surface-2 text-ink hover:text-brand"}`;
               return s.slug ? (
                 <Link key={s.slug} to="/black-friday/$section" params={{ section: s.slug }} className={cls}>
                   <Icon className="h-4 w-4" /> {s.name}
@@ -198,7 +182,7 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
 
         <section id="offers" className="container-tm mt-6 grid scroll-mt-32 gap-6 lg:grid-cols-[260px_1fr]">
           <aside className="hidden lg:block">
-            <div className="sticky top-36 rounded-xl bg-card p-5 shadow-card">{filters}</div>
+            <div className="sticky top-20 rounded-xl bg-card p-5 shadow-card">{filters}</div>
           </aside>
           <div className="min-w-0">
             <h2 className="sr-only">Всички Black Friday оферти</h2>
@@ -236,7 +220,7 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
                 {Array.from({ length: pages }, (_, i) => (
                   <button key={i} type="button" onClick={() => { setPage(i + 1); document.getElementById("offers")?.scrollIntoView({ behavior: "smooth" }); }}
                     aria-current={page === i + 1 ? "page" : undefined}
-                    className={`h-10 w-10 rounded-lg text-sm font-bold transition ${page === i + 1 ? "bg-ink text-background" : "bg-card text-ink hover:bg-surface-2"}`}>
+                    className={`h-10 w-10 rounded-lg text-sm font-bold transition ${page === i + 1 ? "bg-brand text-brand-foreground" : "bg-card text-ink hover:bg-surface-2"}`}>
                     {i + 1}
                   </button>
                 ))}
@@ -245,14 +229,14 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
           </div>
         </section>
 
-        <div className="mt-12 bg-background">
+        <div className="mt-12">
           <Rail title="Топ оферти" items={top} />
           <Rail title="Най-големи намаления" items={biggest} />
           <Rail title="Последни бройки" items={last} />
         </div>
 
         {/* SEO + FAQ + links */}
-        <section className="container-tm mt-14 grid gap-6 lg:grid-cols-2">
+        <section className="container-tm mt-14 grid gap-6 text-[13px] lg:grid-cols-2">
           <div className="rounded-2xl bg-card p-6 shadow-card md:p-8">
             {section.seo.map((s) => (
               <div key={s.h2} className="mb-5 last:mb-0">
@@ -289,11 +273,10 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
           </div>
         </section>
       </main>
-      <Footer />
 
       {open && (
-        <div className="fixed inset-0 z-[60] lg:hidden">
-          <div className="absolute inset-0 bg-ink/50" onClick={() => setOpen(false)} />
+        <div className="theme-bf fixed inset-0 z-[60] lg:hidden">
+          <div className="absolute inset-0 bg-background/70" onClick={() => setOpen(false)} />
           <div className="absolute inset-y-0 left-0 flex w-[86%] max-w-sm flex-col bg-background">
             <div className="flex items-center justify-between border-b border-border p-4">
               <span className="font-display text-lg font-black text-ink">Филтри</span>
