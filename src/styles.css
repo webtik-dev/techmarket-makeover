@@ -145,3 +145,6 @@
   background-color: var(--background);
   color: var(--foreground);
 }
+
+/* Black Friday pages stretch to full viewport width with light side padding */
+.theme-bf .container-tm { max-width: 100%; }
