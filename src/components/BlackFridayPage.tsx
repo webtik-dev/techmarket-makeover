@@ -52,7 +52,7 @@ function Rail({ title, items }: { title: string; items: typeof bfProducts }) {
   return (
     <section className="container-tm py-8">
       <h2 className="mb-5 text-center font-display text-2xl font-black uppercase tracking-tight text-ink">{title}</h2>
-      <div className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 lg:grid-cols-5">
+      <div className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 lg:grid-cols-5 xl:grid-cols-6">
         {items.map((p) => (
           <div key={p.id} className="w-[46%] shrink-0 snap-start md:w-auto">
             <ProductCard product={p} campaign />
@@ -208,7 +208,7 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
             </div>
 
             {visible.length ? (
-              <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 xl:grid-cols-4">
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-5 xl:grid-cols-6">
                 {visible.map((p) => <ProductCard key={p.id} product={p} campaign />)}
               </div>
             ) : (
