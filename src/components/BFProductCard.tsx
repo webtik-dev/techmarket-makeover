@@ -20,11 +20,6 @@ export function BFProductCard({ product }: { product: Product; campaign?: boolea
           </span>
         </div>
       </Link>
-      <Link
-        to="/favorites"
-        aria-label="Добави в любими"
-        className="absolute hidden"
-      />
       <div className="flex flex-1 flex-col gap-3 px-1 pt-4">
         <div className="flex items-start justify-between gap-2">
           <Link to="/product/$slug" params={{ slug: product.slug }} className="line-clamp-2 min-h-[2.5rem] text-[14px] font-semibold leading-snug text-ink hover:text-brand">

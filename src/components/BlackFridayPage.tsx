@@ -276,7 +276,7 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
 
       {open && (
         <div className="theme-bf fixed inset-0 z-[60] lg:hidden">
-          <div className="absolute inset-0 bg-ink/50" onClick={() => setOpen(false)} />
+          <div className="absolute inset-0 bg-background/70" onClick={() => setOpen(false)} />
           <div className="absolute inset-y-0 left-0 flex w-[86%] max-w-sm flex-col bg-background">
             <div className="flex items-center justify-between border-b border-border p-4">
               <span className="font-display text-lg font-black text-ink">Филтри</span>
