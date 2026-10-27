@@ -10,7 +10,7 @@ const icons: Record<string, typeof Laptop> = {
   "": LayoutGrid, "mashini-instrumenti": Wrench, tehnika: Laptop, "fitnes-uredi": Dumbbell, "sportni-stoki": Bike,
 };
 
-const PAGE = 12;
+const PAGE = 30;
 const discountSteps = [10, 20, 30, 40];
 const priceRanges = [
   { label: "До 100 €", min: 0, max: 100 },
@@ -44,22 +44,6 @@ function Countdown() {
         </div>
       ))}
     </div>
-  );
-}
-
-function Rail({ title, items }: { title: string; items: typeof bfProducts }) {
-  if (!items.length) return null;
-  return (
-    <section className="container-tm py-8">
-      <h2 className="mb-5 text-center font-display text-2xl font-black uppercase tracking-tight text-ink">{title}</h2>
-      <div className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 lg:grid-cols-6">
-        {items.map((p) => (
-          <div key={p.id} className="w-[46%] shrink-0 snap-start md:w-auto">
-            <ProductCard product={p} campaign />
-          </div>
-        ))}
-      </div>
-    </section>
   );
 }
 
