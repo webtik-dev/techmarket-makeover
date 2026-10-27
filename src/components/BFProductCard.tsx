@@ -8,6 +8,7 @@ const fmt = (n: number) => n.toLocaleString("bg-BG", { minimumFractionDigits: 2,
 
 export function BFProductCard({ product }: { product: Product; campaign?: boolean }) {
   const discount = product.oldPrice ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) : 0;
+  const saved = product.oldPrice ? product.oldPrice - product.price : 0;
   const out = product.stock === "out";
   return (
     <article className="group flex h-full flex-col rounded-2xl border border-border bg-card p-3 transition hover:border-brand/60">
@@ -33,6 +34,11 @@ export function BFProductCard({ product }: { product: Product; campaign?: boolea
           <span className="font-display text-[22px] font-black text-brand">{fmt(product.price)} <span className="text-sm">€</span></span>
           {product.oldPrice && <span className="text-sm text-muted-foreground line-through">{fmt(product.oldPrice)} €</span>}
         </div>
+        {saved > 0 && (
+          <span className="inline-flex w-fit items-center gap-1 rounded-full bg-brand/15 px-2.5 py-1 text-[11px] font-bold text-brand">
+            Спестяваш {fmt(saved)} €
+          </span>
+        )}
         <div className="flex h-10 items-center justify-center gap-2 rounded-full border border-brand/70 text-[13px] font-bold text-brand">
           <span className="rounded bg-ink px-1.5 py-0.5"><img src={tbiLogo.url} alt="TBI Bank" className="h-3.5 w-auto" /></span>
           на изплащане
