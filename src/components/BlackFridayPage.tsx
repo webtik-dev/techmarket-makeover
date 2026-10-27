@@ -10,7 +10,7 @@ const icons: Record<string, typeof Laptop> = {
   "": LayoutGrid, "mashini-instrumenti": Wrench, tehnika: Laptop, "fitnes-uredi": Dumbbell, "sportni-stoki": Bike,
 };
 
-const PAGE = 12;
+const PAGE = 30;
 const discountSteps = [10, 20, 30, 40];
 const priceRanges = [
   { label: "До 100 €", min: 0, max: 100 },
@@ -44,22 +44,6 @@ function Countdown() {
         </div>
       ))}
     </div>
-  );
-}
-
-function Rail({ title, items }: { title: string; items: typeof bfProducts }) {
-  if (!items.length) return null;
-  return (
-    <section className="container-tm py-8">
-      <h2 className="mb-5 text-center font-display text-2xl font-black uppercase tracking-tight text-ink">{title}</h2>
-      <div className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 lg:grid-cols-6">
-        {items.map((p) => (
-          <div key={p.id} className="w-[46%] shrink-0 snap-start md:w-auto">
-            <ProductCard product={p} campaign />
-          </div>
-        ))}
-      </div>
-    </section>
   );
 }
 
@@ -104,9 +88,6 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
     setSel((s) => ({ ...s, [k]: s[k].includes(v) ? s[k].filter((x) => x !== v) : [...s[k], v] }));
   const activeCount = sel.brands.length + sel.subcats.length + (sel.price !== null ? 1 : 0) + (sel.disc ? 1 : 0);
 
-  const top = sortProducts(pool, "popular").slice(0, 5);
-  const biggest = sortProducts(pool, "discount").slice(0, 5);
-  const last = pool.filter((p) => p.stock === "low").slice(0, 5);
 
   const filters = (
     <div className="space-y-6">
@@ -208,32 +189,23 @@ export function BlackFridayPage({ section }: { section: BFSection }) {
             </div>
 
             {visible.length ? (
-              <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-6">
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-5">
                 {visible.map((p) => <ProductCard key={p.id} product={p} campaign />)}
               </div>
             ) : (
               <div className="rounded-xl bg-card p-10 text-center text-muted-foreground">Няма оферти по избраните филтри.</div>
             )}
 
-            {pages > 1 && (
-              <nav aria-label="Страници" className="mt-8 flex justify-center gap-2">
-                {Array.from({ length: pages }, (_, i) => (
-                  <button key={i} type="button" onClick={() => { setPage(i + 1); document.getElementById("offers")?.scrollIntoView({ behavior: "smooth" }); }}
-                    aria-current={page === i + 1 ? "page" : undefined}
-                    className={`h-10 w-10 rounded-lg text-sm font-bold transition ${page === i + 1 ? "bg-brand text-brand-foreground" : "bg-card text-ink hover:bg-surface-2"}`}>
-                    {i + 1}
-                  </button>
-                ))}
-              </nav>
+            {page < pages && (
+              <div className="mt-8 flex justify-center">
+                <button type="button" onClick={() => setPage((p) => p + 1)}
+                  className="inline-flex h-12 items-center gap-2 rounded-full bg-brand px-8 text-sm font-bold text-brand-foreground shadow-brand transition hover:opacity-90">
+                  Зареди още продукти
+                </button>
+              </div>
             )}
           </div>
         </section>
-
-        <div className="mt-12">
-          <Rail title="Топ оферти" items={top} />
-          <Rail title="Най-големи намаления" items={biggest} />
-          <Rail title="Последни бройки" items={last} />
-        </div>
 
         {/* SEO + FAQ + links */}
         <section className="container-tm mt-14 grid gap-6 text-[13px] lg:grid-cols-2">
